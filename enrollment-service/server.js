@@ -6,20 +6,12 @@ app.use(express.json());
 
 const enrollments = [];
 
-const STUDENT_SERVICE_URL = process.env.STUDENT_SERVICE_URL || "http://student-service:3001";
-const COURSE_SERVICE_URL = process.env.COURSE_SERVICE_URL || "http://course-service:3002";
+const STUDENT_SERVICE_URL =
+    process.env.STUDENT_SERVICE_URL || "http://student-service:3001";
 
-// Response timing middleware
-app.use((req, res, next) => {
-    const start = Date.now();
-    res.on("finish", () => {
-        const duration = Date.now() - start;
-        res.setHeader("X-Response-Time", `${duration}ms`);
-    });
-    next();
-});
+const COURSE_SERVICE_URL =
+    process.env.COURSE_SERVICE_URL || "http://course-service:3002";
 
-// POST /enroll - Orchestrates inter-service communication with student-service & course-service
 app.post("/enroll", async (req, res) => {
     const { studentId, courseId } = req.body;
 
@@ -30,29 +22,37 @@ app.post("/enroll", async (req, res) => {
     }
 
     try {
-        // Query Student Service
         const studentResponse = await fetch(
             `${STUDENT_SERVICE_URL}/students/${studentId}`
         );
 
         if (!studentResponse.ok) {
-            return res.status(studentResponse.status === 404 ? 404 : 502).json({
+            return res.status(
+                studentResponse.status === 404 ? 404 : 502
+            ).json({
                 error: "Student validation failed",
-                details: studentResponse.status === 404 ? "Student does not exist" : "Student service error"
+                details:
+                    studentResponse.status === 404
+                        ? "Student does not exist"
+                        : "Student service error"
             });
         }
 
         const student = await studentResponse.json();
 
-        // Query Course Service
         const courseResponse = await fetch(
             `${COURSE_SERVICE_URL}/courses/${courseId}`
         );
 
         if (!courseResponse.ok) {
-            return res.status(courseResponse.status === 404 ? 404 : 502).json({
+            return res.status(
+                courseResponse.status === 404 ? 404 : 502
+            ).json({
                 error: "Course validation failed",
-                details: courseResponse.status === 404 ? "Course does not exist" : "Course service error"
+                details:
+                    courseResponse.status === 404
+                        ? "Course does not exist"
+                        : "Course service error"
             });
         }
 
@@ -60,8 +60,8 @@ app.post("/enroll", async (req, res) => {
 
         const enrollment = {
             id: enrollments.length + 1,
-            student: student,
-            course: course,
+            student,
+            course,
             status: "ENROLLED",
             enrolledAt: new Date().toISOString()
         };
@@ -70,11 +70,14 @@ app.post("/enroll", async (req, res) => {
 
         res.status(201).json({
             message: "Enrollment successful",
-            enrollment: enrollment
+            enrollment
         });
 
     } catch (error) {
-        console.error("[enrollment-service] Inter-service communication error:", error);
+        console.error(
+            "[enrollment-service] Inter-service communication error:",
+            error
+        );
 
         res.status(500).json({
             error: "Unable to communicate with dependent microservices",
@@ -83,21 +86,24 @@ app.post("/enroll", async (req, res) => {
     }
 });
 
-// GET all enrollments
 app.get("/enrollments", (req, res) => {
     res.json(enrollments);
 });
 
-// GET enrollment by ID
 app.get("/enrollments/:id", (req, res) => {
-    const enrollment = enrollments.find(e => e.id === parseInt(req.params.id));
+    const enrollment = enrollments.find(
+        e => e.id === parseInt(req.params.id)
+    );
+
     if (!enrollment) {
-        return res.status(404).json({ error: "Enrollment record not found" });
+        return res.status(404).json({
+            error: "Enrollment record not found"
+        });
     }
+
     res.json(enrollment);
 });
 
-// Health check endpoint
 app.get("/health", (req, res) => {
     res.json({
         service: "enrollment-service",
@@ -108,6 +114,7 @@ app.get("/health", (req, res) => {
 });
 
 const PORT = 3003;
+
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`[enrollment-service] Running on port ${PORT}`);
-});
+});

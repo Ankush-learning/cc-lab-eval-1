@@ -1,231 +1,557 @@
-# Containerized Microservice Application Under Varying Workloads
-## Cloud Computing Lab Evaluation 1 — Experiment Report & Demonstration Guide
+# Student Management System — Containerized Microservices & Workload Evaluation
 
-[![Docker Compose](https://img.shields.io/badge/Docker--Compose-v2.0%2B-blue?logo=docker)](https://www.docker.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-v20--alpine-green?logo=node.js)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express-v4.21-lightgrey?logo=express)](https://expressjs.com/)
-[![License](https://img.shields.io/badge/Evaluation-Pass--5%2F5-brightgreen)]()
+**Docker Compose • Node.js • Express • Python • Matplotlib • Autocannon**
 
----
-
-### 📌 Repository Information
-- **Repository URL:** [https://github.com/Ankush-learning/cc-lab-eval-1](https://github.com/Ankush-learning/cc-lab-eval-1)
-- **Application Domain:** Student Course Enrollment Management System
-- **Architecture:** Client ➔ `enrollment-service` (Service 1) ➔ `student-service` (Service 2) / `course-service` (Service 3)
+**Course:** Cloud Computing Lab (Evaluation 1)  
+**System Domain:** Student Management & Course Enrollment System
 
 ---
 
-## 🎯 Aim of Experiment
-To develop a microservice-based application containing three independent services, containerize and deploy the services using Docker & Docker Compose, establish inter-service communication over a dedicated container network, generate varying workloads across 5 concurrency levels, monitor resource utilization using `docker stats`, and analyze application performance.
+## 1. System Architecture & Inter-Service Topology
 
----
+The system is implemented as three independently containerized Node.js microservices communicating over an isolated Docker user-defined bridge network.
 
-## 🏗️ System Architecture & Communication Flow
+The **enrollment-service** acts as the orchestrator. It validates a student through the student-service, validates a course through the course-service, and returns an aggregated enrollment response.
 
-![Architecture Diagram](images/architecture_diagram.svg)
-
-```
-                       ┌────────────────────────────────────────────────────────┐
-                       │           Docker Network: microservice-network         │
-                       │                                                        │
-                       │   ┌──────────────────┐           ┌─────────────────┐   │
-                       │   │ student-service  │           │ course-service  │   │
-                       │   │  (Port 3001)     │           │  (Port 3002)    │   │
-                       │   └────────▲─────────┘           └────────▲────────┘   │
-                       │            │ GET                      │ GET            │
-                       │            └──────────┐      ┌────────┘                │
-                       │                       │      │                         │
-                       │               ┌───────┴──────┴──────┐                  │
-                       │               │ enrollment-service  │                  │
-                       │               │    (Port 3003)      │                  │
-                       │               └──────────▲──────────┘                  │
-                       └──────────────────────────┼─────────────────────────────┘
-                                                  │ POST /enroll
-                                         ┌────────┴────────┐
-                                         │   HTTP Client   │
-                                         │ (Load Generator)│
-                                         └─────────────────┘
+```text
+                         +-------------------------+
+                         |     Client / Load Test  |
+                         +-------------------------+
+                                    |
+                                    | HTTP
+                                    v
+              ============== [ microservice-network ] ==============
+              |                                                     |
+              |             +---------------------------+           |
+              |             |    enrollment-service     |           |
+              |             |       Port 3003           |           |
+              |             |       Orchestrator        |           |
+              |             +---------------------------+           |
+              |                    |             |                  |
+              | HTTP GET /students |             | HTTP GET /courses|
+              |                    v             v                  |
+              |        +----------------+   +----------------+      |
+              |        | student-service|   | course-service |      |
+              |        |    Port 3001   |   |    Port 3002   |      |
+              |        +----------------+   +----------------+      |
+              |                                                     |
+              =======================================================
 ```
 
----
+### Request flow
 
-## 📋 Checkpoint Evaluation & Progress Summary
+For a complete enrollment request:
 
-| Checkpoint | Evaluation Area | Status | Marks |
-| :--- | :--- | :---: | :---: |
-| **Checkpoint 1** | Design and develop 3 microservices | ✅ Complete | 1 / 1 |
-| **Checkpoint 2** | Containerize and deploy using Docker Compose | ✅ Complete | 1 / 1 |
-| **Checkpoint 3** | Establish and demonstrate inter-service communication | ✅ Complete | 1 / 1 |
-| **Checkpoint 4** | Generate varying workloads (W1-W5) and monitor performance | ✅ Complete | 1 / 1 |
-| **Checkpoint 5** | Analyze results, produce observation table & presentation | ✅ Complete | 1 / 1 |
-| **TOTAL** | **Experiment Demonstration & Analysis** | **Completed** | **5 / 5** |
+```text
+Client
+  |
+  | POST /enroll
+  v
+Enrollment Service
+  |
+  +---- GET /students/:id ----> Student Service
+  |
+  +---- GET /courses/:id -----> Course Service
+  |
+  v
+Aggregated Enrollment Response
+```
 
----
-
-## 🔍 Checkpoint Breakdown
-
-### Checkpoint 1 — Design and Develop Microservices
-
-Three independent RESTful microservices were implemented using Node.js and Express.js:
-
-#### 1. `student-service` (Port 3001)
-- **Responsibility:** Manages student records, profile data, and validation queries.
-- **REST Endpoints:**
-  - `GET /students` — Returns list of all student records
-  - `GET /students/:id` — Returns details for a specific student
-  - `POST /students` — Creates a new student record
-  - `GET /health` — Service health check endpoint
-
-#### 2. `course-service` (Port 3002)
-- **Responsibility:** Manages course catalog, credit counts, and course details.
-- **REST Endpoints:**
-  - `GET /courses` — Returns list of available courses
-  - `GET /courses/:id` — Returns details for a specific course
-  - `POST /courses` — Creates a new course entry
-  - `GET /health` — Service health check endpoint
-
-#### 3. `enrollment-service` (Port 3003)
-- **Responsibility:** Orchestrates student enrollment processing by querying `student-service` and `course-service`.
-- **REST Endpoints:**
-  - `POST /enroll` — End-to-end enrollment endpoint (`{ "studentId": 1, "courseId": 101 }`)
-  - `GET /enrollments` — List all completed enrollment records
-  - `GET /enrollments/:id` — Get specific enrollment record
-  - `GET /health` — Service health check endpoint
+This demonstrates synchronous inter-service communication across the Docker network.
 
 ---
 
-### Checkpoint 2 — Containerize and Deploy Application
+## 2. Microservice Directory Structure
 
-Each microservice contains its own dedicated `Dockerfile` using optimized lightweight base images (`node:20-alpine`).
-
-#### Multi-Container Deployment via `docker-compose.yml`:
-```yaml
-services:
-  student-service:
-    build: ./student-service
-    container_name: student-service
-    ports:
-      - "3001:3001"
-    networks:
-      - microservice-network
-    restart: always
-
-  course-service:
-    build: ./course-service
-    container_name: course-service
-    ports:
-      - "3002:3002"
-    networks:
-      - microservice-network
-    restart: always
-
-  enrollment-service:
-    build: ./enrollment-service
-    container_name: enrollment-service
-    ports:
-      - "3003:3003"
-    networks:
-      - microservice-network
-    environment:
-      - STUDENT_SERVICE_URL=http://student-service:3001
-      - COURSE_SERVICE_URL=http://course-service:3002
-    depends_on:
-      - student-service
-      - course-service
-    restart: always
-
-networks:
-  microservice-network:
-    driver: bridge
+```text
+microservice-lab/
+├── .gitignore
+├── docker-compose.yml
+├── README.md
+│
+├── student-service/
+│   ├── server.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── package-lock.json
+│
+├── course-service/
+│   ├── server.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── package-lock.json
+│
+├── enrollment-service/
+│   ├── server.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── package-lock.json
+│
+├── load-test/
+│   ├── monitor.py
+│   └── make_graphs.py
+│
+└── results/
+    ├── raw/
+    │   ├── w1_stats.csv
+    │   ├── w2_stats.csv
+    │   ├── w4_stats.csv
+    │   ├── w8_stats.csv
+    │   └── w16_stats.csv
+    │
+    ├── resource_analysis.csv
+    ├── graph1_response_time.png
+    ├── graph2_throughput.png
+    ├── graph3_total_cpu.png
+    ├── graph4_total_memory.png
+    ├── graph5_service_cpu.png
+    └── graph6_service_memory.png
 ```
 
 ---
 
-### Checkpoint 3 — Inter-Service Communication
+## 3. Microservice Specifications
 
-1. **Network Configuration:** Docker Compose creates bridge network `microservice-network`.
-2. **Service Discovery:** Services communicate using container DNS names:
-   - `http://student-service:3001/students/:id`
-   - `http://course-service:3002/courses/:id`
-3. **End-to-End Request Verification (`POST /enroll`):**
-   ```bash
-   curl -X POST http://localhost:3003/enroll \
-     -H "Content-Type: application/json" \
-     -d '{"studentId": 1, "courseId": 101}'
-   ```
+### 3.1 student-service — Port 3001
 
----
+**Role:** Maintains the in-memory student catalog.
 
-### Checkpoint 4 & 5 — Observation Results & Performance Graphs
+### Endpoints
 
-#### 📊 Measured Performance Observation Table
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/students` | Returns all students |
+| GET | `/students/:id` | Returns a specific student |
+| POST | `/students` | Creates a new student |
+| GET | `/health` | Health check |
 
-| Workload Level | Concurrency | Total Requests | Average Response Time (ms) | Throughput (req/sec) | Failed Requests | Total CPU Utilization (%) | Total Memory Utilization (MB) |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **W1** | **1** | 100 | **16.3 ms** | **61.3 rps** | 0 | **32.0 %** | **74.6 MB** |
-| **W2** | **2** | 200 | **16.7 ms** | **119.5 rps** | 0 | **74.1 %** | **77.4 MB** |
-| **W3** | **4** | 400 | **14.0 ms** | **283.1 rps** | 0 | **158.1 %** | **80.5 MB** |
-| **W4** | **8** | 800 | **27.6 ms** | **283.6 rps** | 0 | **200.5 %** | **84.4 MB** |
-| **W5** | **16** | 1600 | **50.4 ms** | **295.7 rps** | 0 | **202.3 %** | **86.3 MB** |
+### Sample student
 
----
-
-#### 📈 Complete 6 Performance Evaluation Graphs
-
-##### Graph 1: Concurrency vs. Average Response Time
-*Illustrates latency escalation due to queueing and thread contention under elevated client concurrency.*
-![Graph 1: Concurrency vs Average Response Time](images/graph1_response_time.png)
-
-##### Graph 2: Concurrency vs. System Throughput
-*Shows near-linear throughput scaling up to 4–8 concurrent threads, followed by saturation at ~284 RPS at 16 threads.*
-![Graph 2: Concurrency vs System Throughput](images/graph2_throughput.png)
-
-##### Graph 3: Concurrency vs. Total CPU Utilization (%)
-*Depicts the cumulative CPU demand across all microservice containers as concurrency grows.*
-![Graph 3: Concurrency vs Total CPU Utilization](images/graph3_total_cpu.png)
-
-##### Graph 4: Concurrency vs. Total Memory Usage (MB)
-*Demonstrates stable baseline memory footprint with gradual expansion under higher concurrent request buffering.*
-![Graph 4: Concurrency vs Total Memory Usage](images/graph4_total_memory.png)
-
-##### Graph 5: Service-Level CPU Breakdown
-*Clearly reveals that `enrollment-service` (orchestrator) consumes substantially more CPU than downstream services due to orchestrator socket and JSON processing overhead.*
-![Graph 5: Service-Level CPU Breakdown](images/graph5_service_cpu_breakdown.png)
-
-##### Graph 6: Service-Level Memory Breakdown
-*Compares memory allocations across `enrollment-service`, `student-service`, and `course-service`.*
-![Graph 6: Service-Level Memory Breakdown](images/graph6_service_memory_breakdown.png)
+```json
+{
+  "id": 1,
+  "name": "Ankush",
+  "department": "CS-AI",
+  "email": "ankush@example.com"
+}
+```
 
 ---
 
-### 💡 Performance Analysis & Findings
+### 3.2 course-service — Port 3002
 
-1. **Latency Escalation Curve (Graph 1):**
-   - Response time remains low under low to moderate concurrency (16.3 ms at W1, 16.7 ms at W2, 14.0 ms at W3).
-   - Under higher concurrency (W4=8, W5=16), average latency escalates to **27.6 ms** and **50.4 ms** due to thread queueing and socket connection contention.
+**Role:** Maintains the in-memory course catalog.
 
-2. **Throughput Saturation (Graph 2):**
-   - Throughput scales rapidly from 61.3 rps (W1) to **283.1 rps (W3)**, saturating at **295.7 rps (W5)**.
+### Endpoints
 
-3. **Cumulative CPU Demand (Graph 3 & 5):**
-   - Total CPU demand increases up to 202.3% at W5.
-   - `enrollment-service` is the primary resource bottleneck (consuming up to 131.5% CPU at W5), while `student-service` (33.1%) and `course-service` (36.6%) remain low.
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/courses` | Returns all courses |
+| GET | `/courses/:id` | Returns a specific course |
+| POST | `/courses` | Creates a new course |
+| GET | `/health` | Health check |
 
-4. **Memory Allocations (Graph 4 & 6):**
-   - Total memory expands moderately from 74.6 MB (W1) to 86.3 MB (W5). `enrollment-service` uses 38.2 MB at W5, compared to ~23 MB for `student-service` and ~25 MB for `course-service`.
+### Sample course
+
+```json
+{
+  "id": 101,
+  "name": "Machine Learning",
+  "credits": 4,
+  "code": "CS401"
+}
+```
 
 ---
 
-## 🚀 How to Run the Application Locally
+### 3.3 enrollment-service — Port 3003
+
+**Role:** Orchestrates student and course validation before creating an enrollment.
+
+### Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/enroll` | Creates an enrollment using both dependent services |
+| GET | `/enrollments` | Returns all enrollments |
+| GET | `/enrollments/:id` | Returns a specific enrollment |
+| GET | `/health` | Health check |
+
+The orchestration request uses:
+
+```text
+http://student-service:3001/students/:id
+http://course-service:3002/courses/:id
+```
+
+The service names resolve through the Docker Compose network.
+
+---
+
+# 4. Quickstart & Deployment
+
+## Prerequisites
+
+- Docker Desktop
+- Docker Compose v2+
+- Node.js 20+
+- Python 3.10+
+- npm / npx
+
+## Step 1: Clone the repository
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/Ankush-learning/cc-lab-eval-1.git
 cd cc-lab-eval-1
-
-# 2. Build and start containers
-docker compose up --build -d
-
-# 3. Run workload benchmark test
-node workload_test.js
 ```
+
+## Step 2: Build and launch all services
+
+```bash
+docker compose up --build -d
+```
+
+## Step 3: Verify containers
+
+```bash
+docker compose ps
+```
+
+Expected services:
+
+```text
+student-service
+course-service
+enrollment-service
+```
+
+All three services expose their ports to the host:
+
+```text
+3001 → student-service
+3002 → course-service
+3003 → enrollment-service
+```
+
+---
+
+# 5. API Verification
+
+## Test 1 — Student Service
+
+```powershell
+Invoke-RestMethod http://localhost:3001/students/1
+```
+
+Expected response:
+
+```json
+{
+  "id": 1,
+  "name": "Ankush",
+  "department": "CS-AI",
+  "email": "ankush@example.com"
+}
+```
+
+## Test 2 — Course Service
+
+```powershell
+Invoke-RestMethod http://localhost:3002/courses/101
+```
+
+Expected response:
+
+```json
+{
+  "id": 101,
+  "name": "Machine Learning",
+  "credits": 4,
+  "code": "CS401"
+}
+```
+
+## Test 3 — Enrollment Service
+
+```powershell
+Invoke-RestMethod http://localhost:3003/enrollments
+```
+
+Returns the current enrollment collection.
+
+## Test 4 — Complete Inter-Service Request
+
+```powershell
+Invoke-RestMethod `
+  -Method POST `
+  -Uri http://localhost:3003/enroll `
+  -ContentType "application/json" `
+  -Body '{"studentId":1,"courseId":101}'
+```
+
+This request demonstrates the complete microservice flow:
+
+```text
+Client
+  ↓
+Enrollment Service
+  ↓
+Student Service
+  ↓
+Course Service
+  ↓
+Enrollment Response
+```
+
+A successful response contains the validated student, validated course, and enrollment status.
+
+---
+
+# 6. Workload Testing & Telemetry Collection
+
+The system was evaluated using five concurrency levels:
+
+```text
+1
+2
+4
+8
+16
+```
+
+Each workload was executed for **10 seconds** using Autocannon.
+
+### Load-test commands
+
+```powershell
+npx autocannon -c 1 -d 10 http://localhost:3003/enrollments
+npx autocannon -c 2 -d 10 http://localhost:3003/enrollments
+npx autocannon -c 4 -d 10 http://localhost:3003/enrollments
+npx autocannon -c 8 -d 10 http://localhost:3003/enrollments
+npx autocannon -c 16 -d 10 http://localhost:3003/enrollments
+```
+
+### Resource monitoring
+
+Docker CPU and memory statistics were sampled continuously during each workload using:
+
+```text
+docker stats --no-stream
+```
+
+The Python monitoring script stores raw samples in:
+
+```text
+results/raw/
+```
+
+with one file for each concurrency level.
+
+---
+
+# 7. Evaluation Observation Table
+
+The final Autocannon measurements were:
+
+| Concurrency | Avg Response Time (ms) | Throughput (req/s) | Max Latency (ms) | Failed Requests |
+|---:|---:|---:|---:|---:|
+| 1 | 0.23 | 1285.8 | 26 | 0 |
+| 2 | 0.19 | 2634.2 | 17 | 0 |
+| 4 | 0.40 | 3971.9 | 34 | 0 |
+| 8 | 1.00 | 5376.91 | 17 | 0 |
+| 16 | 2.73 | 4955.5 | 94 | 0 |
+
+### Key observations
+
+1. Response time remained very low at low concurrency and increased to 2.73 ms at 16 concurrent connections.
+2. Throughput increased substantially from 1 to 8 concurrent connections.
+3. Peak measured throughput was **5376.91 req/s at concurrency 8**.
+4. Throughput decreased slightly at concurrency 16, indicating the beginning of saturation under the tested workload.
+5. No failed requests were recorded in the final clean benchmark runs.
+6. The maximum observed latency was **94 ms at concurrency 16**.
+
+---
+
+# 8. Performance Visualization
+
+Six graphs are generated from the measured benchmark and Docker telemetry data.
+
+Generate the graphs with:
+
+```powershell
+python load-test/make_graphs.py
+```
+
+## Graph 1: Concurrency vs. Average Response Time
+
+Shows how average request latency changes as the number of concurrent connections increases.
+
+![Graph 1: Concurrency vs. Average Response Time](results/graph1_response_time.png)
+
+## Graph 2: Concurrency vs. System Throughput
+
+Shows the number of requests processed per second at each concurrency level.
+
+![Graph 2: Concurrency vs. System Throughput](results/graph2_throughput.png)
+
+## Graph 3: Concurrency vs. Total CPU Utilization (%)
+
+Shows the combined CPU utilization of:
+
+```text
+student-service
+course-service
+enrollment-service
+```
+
+for each workload.
+
+![Graph 3: Concurrency vs. Total CPU Utilization](results/graph3_total_cpu.png)
+
+## Graph 4: Concurrency vs. Total Memory Usage (MiB)
+
+Shows the combined memory footprint of all three microservices as concurrency changes.
+
+![Graph 4: Concurrency vs. Total Memory Usage](results/graph4_total_memory.png)
+
+## Graph 5: Service-Level CPU Breakdown
+
+Compares CPU utilization among:
+
+```text
+student-service
+course-service
+enrollment-service
+```
+
+at each concurrency level.
+
+![Graph 5: Service-Level CPU Breakdown](results/graph5_service_cpu.png)
+
+## Graph 6: Service-Level Memory Breakdown
+
+Compares memory usage among the three microservices at each concurrency level.
+
+![Graph 6: Service-Level Memory Breakdown](results/graph6_service_memory.png)
+
+# 9. Resource Analysis
+
+The processed resource dataset is stored in:
+
+```text
+results/resource_analysis.csv
+```
+
+The raw telemetry is retained separately in:
+
+```text
+results/raw/
+```
+
+This allows the graphs and calculated averages to be reproduced without manually entering resource values.
+
+### Important measurement note
+
+CPU and memory values are calculated from the Docker statistics sampled during each workload window. They are therefore telemetry measurements of the running containers rather than manually estimated values.
+
+---
+
+# 10. Technical Analysis Highlights
+
+### Throughput behavior
+
+The system scales strongly from 1 through 8 concurrent connections:
+
+```text
+1285.8 req/s
+       ↓
+2634.2 req/s
+       ↓
+3971.9 req/s
+       ↓
+5376.91 req/s
+```
+
+At 16 concurrent connections, throughput falls to:
+
+```text
+4955.5 req/s
+```
+
+while average latency rises to:
+
+```text
+2.73 ms
+```
+
+This indicates that the tested configuration is approaching a saturation point around the higher concurrency levels.
+
+### Service-level behavior
+
+The enrollment-service performs the orchestration work and communicates with both downstream services. Consequently, it is the primary service involved in the end-to-end enrollment workflow.
+
+The student-service and course-service primarily perform in-memory lookups and return JSON responses, while the enrollment-service performs additional request handling, downstream HTTP calls, response processing, and aggregation.
+
+---
+
+# 11. Technology Stack
+
+### Microservices
+
+- Node.js 20
+- Express.js
+- REST APIs
+
+### Containerization
+
+- Docker
+- Docker Compose
+- User-defined bridge network
+
+### Load Testing
+
+- Autocannon
+- Concurrent workload levels: 1, 2, 4, 8, 16
+
+### Telemetry & Visualization
+
+- Python 3.10+
+- Docker Stats
+- Matplotlib
+- CSV-based analysis
+
+---
+
+# 12. Cleanup
+
+To stop and remove the containers and network:
+
+```powershell
+docker compose down
+```
+
+To additionally remove associated volumes:
+
+```powershell
+docker compose down -v
+```
+
+To rebuild from scratch:
+
+```powershell
+docker compose down
+docker compose build --no-cache
+docker compose up -d
+```
+
+---
+
+## Cloud Computing Lab — Evaluation 1
+
+**Project:** Student Management System using Microservices  
+**Architecture:** 3 independently containerized REST microservices  
+**Orchestration:** Enrollment Service  
+**Network:** Docker user-defined bridge network  
+**Workloads:** 1, 2, 4, 8, 16 concurrent requests  
+**Graphs:** 6  
+**Load Test Duration:** 10 seconds per workload

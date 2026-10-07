@@ -31,22 +31,10 @@ const students = [
     }
 ];
 
-// Response timing middleware
-app.use((req, res, next) => {
-    const start = Date.now();
-    res.on("finish", () => {
-        const duration = Date.now() - start;
-        res.setHeader("X-Response-Time", `${duration}ms`);
-    });
-    next();
-});
-
-// GET all students
 app.get("/students", (req, res) => {
     res.json(students);
 });
 
-// GET student by ID
 app.get("/students/:id", (req, res) => {
     const student = students.find(
         s => s.id === parseInt(req.params.id)
@@ -62,11 +50,13 @@ app.get("/students/:id", (req, res) => {
     res.json(student);
 });
 
-// POST new student
 app.post("/students", (req, res) => {
     const { name, department, email } = req.body;
+
     if (!name || !department) {
-        return res.status(400).json({ error: "Name and department are required" });
+        return res.status(400).json({
+            error: "Name and department are required"
+        });
     }
 
     const newStudent = {
@@ -80,7 +70,6 @@ app.post("/students", (req, res) => {
     res.status(201).json(newStudent);
 });
 
-// Health check endpoint
 app.get("/health", (req, res) => {
     res.json({
         service: "student-service",
@@ -91,6 +80,7 @@ app.get("/health", (req, res) => {
 });
 
 const PORT = 3001;
+
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`[student-service] Running on port ${PORT}`);
-});
+});

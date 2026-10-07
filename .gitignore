@@ -8,3 +8,12 @@ npm-debug.log*
 # System files
 .DS_Store
 Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Old dev scripts (not needed in repo)
+generate_charts.js
+generate_ppt.py
+build_pptx.py

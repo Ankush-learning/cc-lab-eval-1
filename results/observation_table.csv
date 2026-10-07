@@ -1,6 +1,0 @@
-Workload,Concurrency,Avg Response Time (ms),Throughput (req/sec),Failed Requests,CPU Utilization (%),Memory Utilization (MB)
-W1,1,16.3,61.3,0,2.80,106.5
-W2,2,16.7,119.8,0,5.63,110.8
-W3,4,14.0,285.7,0,11.13,119.4
-W4,8,27.6,289.9,0,21.53,136.1
-W5,16,50.4,317.5,0,40.37,161.8

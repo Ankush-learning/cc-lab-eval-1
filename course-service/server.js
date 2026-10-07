@@ -31,22 +31,10 @@ const courses = [
     }
 ];
 
-// Response timing middleware
-app.use((req, res, next) => {
-    const start = Date.now();
-    res.on("finish", () => {
-        const duration = Date.now() - start;
-        res.setHeader("X-Response-Time", `${duration}ms`);
-    });
-    next();
-});
-
-// GET all courses
 app.get("/courses", (req, res) => {
     res.json(courses);
 });
 
-// GET course by ID
 app.get("/courses/:id", (req, res) => {
     const course = courses.find(
         c => c.id === parseInt(req.params.id)
@@ -62,11 +50,13 @@ app.get("/courses/:id", (req, res) => {
     res.json(course);
 });
 
-// POST new course
 app.post("/courses", (req, res) => {
     const { name, credits, code } = req.body;
+
     if (!name || !credits) {
-        return res.status(400).json({ error: "Name and credits are required" });
+        return res.status(400).json({
+            error: "Name and credits are required"
+        });
     }
 
     const newCourse = {
@@ -80,7 +70,6 @@ app.post("/courses", (req, res) => {
     res.status(201).json(newCourse);
 });
 
-// Health check endpoint
 app.get("/health", (req, res) => {
     res.json({
         service: "course-service",
@@ -91,6 +80,7 @@ app.get("/health", (req, res) => {
 });
 
 const PORT = 3002;
+
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`[course-service] Running on port ${PORT}`);
-});
+});
