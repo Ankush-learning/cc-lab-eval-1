@@ -98,47 +98,6 @@ Three independent RESTful microservices were implemented using Node.js and Expre
 
 Each microservice contains its own dedicated `Dockerfile` using optimized lightweight base images (`node:20-alpine`).
 
-#### Multi-Container Deployment via `docker-compose.yml`:
-```yaml
-services:
-  student-service:
-    build: ./student-service
-    container_name: student-service
-    ports:
-      - "3001:3001"
-    networks:
-      - microservice-network
-    restart: always
-
-  course-service:
-    build: ./course-service
-    container_name: course-service
-    ports:
-      - "3002:3002"
-    networks:
-      - microservice-network
-    restart: always
-
-  enrollment-service:
-    build: ./enrollment-service
-    container_name: enrollment-service
-    ports:
-      - "3003:3003"
-    networks:
-      - microservice-network
-    environment:
-      - STUDENT_SERVICE_URL=http://student-service:3001
-      - COURSE_SERVICE_URL=http://course-service:3002
-    depends_on:
-      - student-service
-      - course-service
-    restart: always
-
-networks:
-  microservice-network:
-    driver: bridge
-```
-
 ---
 
 ### Checkpoint 3 — Inter-Service Communication
@@ -156,7 +115,7 @@ networks:
 
 ---
 
-### Checkpoint 4 & 5 — Observation Results & Graphs
+### Checkpoint 4 & 5 — Observation Results & Performance Graphs
 
 #### 📊 Measured Performance Observation Table
 
@@ -170,22 +129,22 @@ networks:
 
 ---
 
-#### 📈 Performance Graphs
+#### 📈 Professional Performance Graphs (Matplotlib Generated)
 
 ##### Graph 1: Concurrency vs. Average Response Time
-![Graph 1: Concurrency vs Response Time](images/concurrency_vs_response_time.svg)
+![Graph 1: Concurrency vs Response Time](images/concurrency_vs_response_time.png)
 
 ##### Graph 2: Concurrency vs. Throughput
-![Graph 2: Concurrency vs Throughput](images/concurrency_vs_throughput.svg)
+![Graph 2: Concurrency vs Throughput](images/concurrency_vs_throughput.png)
 
 ##### Graph 3: Concurrency vs. CPU Utilization
-![Graph 3: Concurrency vs CPU Utilization](images/concurrency_vs_cpu.svg)
+![Graph 3: Concurrency vs CPU Utilization](images/concurrency_vs_cpu.png)
 
 ##### Graph 4: Concurrency vs. Memory Utilization
-![Graph 4: Concurrency vs Memory Utilization](images/concurrency_vs_memory.svg)
+![Graph 4: Concurrency vs Memory Utilization](images/concurrency_vs_memory.png)
 
 ##### Performance Overview Dashboard
-![Performance Dashboard](images/performance_dashboard.svg)
+![Performance Dashboard](images/performance_dashboard.png)
 
 ---
 
@@ -196,7 +155,7 @@ networks:
    - Under higher concurrency (W4=8, W5=16), average latency escalates to **27.6 ms** and **50.4 ms** due to thread queueing and socket connection contention.
 
 2. **Throughput Capacity Scaling:**
-   - Throughput scales rapidly from 61.3 req/s (W1) to **285.7 req/s (W3)** and peaks at **317.5 req/s (W5)**.
+   - Throughput scales rapidly from 61.3 req/s (W1) to **285.7 req/s (W3)** and reaches **317.5 req/s (W5)**.
 
 3. **Bottleneck Microservice:**
    - `enrollment-service` is the primary resource consumer (63.8% CPU, 68.4 MB RAM at W5) because it orchestrates outbound requests to `student-service` and `course-service`.
