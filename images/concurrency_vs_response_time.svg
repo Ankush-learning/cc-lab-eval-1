@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="480" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="respTimeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+        </linearGradient>
+    </defs>
+    
+    <rect width="800" height="480" rx="12" fill="#0f172a"/>
+    <rect x="1" y="1" width="798" height="478" rx="11" fill="none" stroke="#1e293b" stroke-width="2"/>
+    
+    <text x="400" y="36" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Concurrent Requests vs Average Response Time</text>
+    <text x="25" y="240" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle" transform="rotate(-90, 25, 240)">Average Response Time (ms)</text>
+    <text x="400" y="468" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Concurrent Requests (Workload Level)</text>
+
+    <!-- Grid Lines & Y Axis -->
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="424" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">0</text>
+
+    <line x1="80" y1="348" x2="760" y2="348" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="352" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">26</text>
+
+    <line x1="80" y1="276" x2="760" y2="276" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="280" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">52</text>
+
+    <line x1="80" y1="204" x2="760" y2="204" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="208" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">78</text>
+
+    <line x1="80" y1="132" x2="760" y2="132" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="136" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">104</text>
+
+    <line x1="80" y1="60" x2="760" y2="60" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="64" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">130</text>
+
+    <!-- X Labels -->
+    <text x="80" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W1 (1 req)</text>
+    <text x="250" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W2 (2 req)</text>
+    <text x="420" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W3 (4 req)</text>
+    <text x="590" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W4 (8 req)</text>
+    <text x="760" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W5 (16 req)</text>
+
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Path & Fill -->
+    <path d="M 80 369 L 250 358.8 L 420 331.9 L 590 269.9 L 760 108.2 L 760 420 L 80 420 Z" fill="url(#respTimeGrad)"/>
+    <path d="M 80 369 C 165 369, 165 358.8, 250 358.8 C 335 358.8, 335 331.9, 420 331.9 C 505 331.9, 505 269.9, 590 269.9 C 675 269.9, 675 108.2, 760 108.2" fill="none" stroke="#38bdf8" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Dots & Values -->
+    <circle cx="80" cy="369" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <text x="80" y="357" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">18.4 ms</text>
+
+    <circle cx="250" cy="358.8" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <text x="250" y="346.8" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">22.1 ms</text>
+
+    <circle cx="420" cy="331.9" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <text x="420" y="319.9" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">31.8 ms</text>
+
+    <circle cx="590" cy="269.9" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <text x="590" y="257.9" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">54.2 ms</text>
+
+    <circle cx="760" cy="108.2" r="6" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <text x="760" y="96.2" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">112.6 ms</text>
+</svg>

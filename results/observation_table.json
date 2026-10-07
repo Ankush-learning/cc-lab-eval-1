@@ -1,0 +1,112 @@
+[
+  {
+    "workload": "W1",
+    "concurrency": 1,
+    "totalRequests": 100,
+    "durationSeconds": 1.84,
+    "avgResponseTimeMs": 18.4,
+    "throughputReqSec": 54.35,
+    "failedRequests": 0,
+    "successfulRequests": 100,
+    "cpuUtilizationPercent": {
+      "studentService": 2.1,
+      "courseService": 1.8,
+      "enrollmentService": 4.5,
+      "overallAverage": 2.8
+    },
+    "memoryUtilizationMb": {
+      "studentService": 34.2,
+      "courseService": 33.8,
+      "enrollmentService": 38.5,
+      "totalMemory": 106.5
+    }
+  },
+  {
+    "workload": "W2",
+    "concurrency": 2,
+    "totalRequests": 200,
+    "durationSeconds": 2.21,
+    "avgResponseTimeMs": 22.1,
+    "throughputReqSec": 90.49,
+    "failedRequests": 0,
+    "successfulRequests": 200,
+    "cpuUtilizationPercent": {
+      "studentService": 4.3,
+      "courseService": 3.9,
+      "enrollmentService": 8.7,
+      "overallAverage": 5.63
+    },
+    "memoryUtilizationMb": {
+      "studentService": 35.1,
+      "courseService": 34.5,
+      "enrollmentService": 41.2,
+      "totalMemory": 110.8
+    }
+  },
+  {
+    "workload": "W3",
+    "concurrency": 4,
+    "totalRequests": 400,
+    "durationSeconds": 3.18,
+    "avgResponseTimeMs": 31.8,
+    "throughputReqSec": 125.78,
+    "failedRequests": 0,
+    "successfulRequests": 400,
+    "cpuUtilizationPercent": {
+      "studentService": 8.2,
+      "courseService": 7.8,
+      "enrollmentService": 17.4,
+      "overallAverage": 11.13
+    },
+    "memoryUtilizationMb": {
+      "studentService": 37.4,
+      "courseService": 36.2,
+      "enrollmentService": 45.8,
+      "totalMemory": 119.4
+    }
+  },
+  {
+    "workload": "W4",
+    "concurrency": 8,
+    "totalRequests": 800,
+    "durationSeconds": 5.42,
+    "avgResponseTimeMs": 54.2,
+    "throughputReqSec": 147.6,
+    "failedRequests": 0,
+    "successfulRequests": 800,
+    "cpuUtilizationPercent": {
+      "studentService": 15.6,
+      "courseService": 14.8,
+      "enrollmentService": 34.2,
+      "overallAverage": 21.53
+    },
+    "memoryUtilizationMb": {
+      "studentService": 41.8,
+      "courseService": 39.7,
+      "enrollmentService": 54.6,
+      "totalMemory": 136.1
+    }
+  },
+  {
+    "workload": "W5",
+    "concurrency": 16,
+    "totalRequests": 1600,
+    "durationSeconds": 11.26,
+    "avgResponseTimeMs": 112.6,
+    "throughputReqSec": 142.09,
+    "failedRequests": 0,
+    "successfulRequests": 1600,
+    "cpuUtilizationPercent": {
+      "studentService": 29.4,
+      "courseService": 27.9,
+      "enrollmentService": 63.8,
+      "overallAverage": 40.37
+    },
+    "memoryUtilizationMb": {
+      "studentService": 48.3,
+      "courseService": 45.1,
+      "enrollmentService": 68.4,
+      "totalMemory": 161.8
+    }
+  }
+]

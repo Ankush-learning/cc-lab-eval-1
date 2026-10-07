@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Performance Analysis — Lab Evaluation Presentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --card-bg: #0f172a;
+            --border-color: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #818cf8;
+            --accent-green: #34d399;
+            --accent-rose: #f43f5e;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 90vw;
+            max-width: 1200px;
+            height: 80vh;
+            max-height: 720px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 60px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .slide-header {
+            margin-bottom: 24px;
+        }
+
+        .category-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .slide-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            flex: 1;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            flex: 1;
+        }
+
+        .card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card-blue { border-top: 4px solid var(--accent-blue); }
+        .card-indigo { border-top: 4px solid var(--accent-indigo); }
+        .card-green { border-top: 4px solid var(--accent-green); }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .card li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #1e293b;
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(15, 23, 42, 0.4);
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            background: #1e293b;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: var(--accent-blue);
+            color: #090d16;
+        }
+
+        .slide-counter {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div style="margin: auto; text-align: center; max-width: 800px;">
+                <div class="category-tag">Cloud Computing Lab Evaluation</div>
+                <h1 style="font-size: 2.5rem; font-weight: 800; margin: 16px 0; color: var(--text-light);">
+                    Build, Deploy & Analyze a Containerized Microservice Application
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--accent-green); margin-bottom: 24px; font-weight: 600;">
+                    Student Management & Course Enrollment System
+                </p>
+                <div style="background: #1e293b; padding: 16px 24px; border-radius: 12px; display: inline-block; text-align: left;">
+                    <p style="color: var(--text-muted); font-size: 0.95rem;"><strong>Architecture:</strong> Client → enrollment-service → student-service / course-service</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 6px;"><strong>Checkpoints Completed:</strong> 1, 2, 3, 4 & 5 (Full Evaluation)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Microservices Overview -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="category-tag">Checkpoint 1</div>
+                <div class="slide-title">System Architecture & Service Responsibilities</div>
+            </div>
+            <div class="grid-3">
+                <div class="card card-green">
+                    <div class="card-header" style="color: var(--accent-green);">student-service</div>
+                    <p><strong>Port:</strong> 3001</p>
+                    <p>Manages student records and profile queries.</p>
+                    <ul>
+                        <li>GET /students</li>
+                        <li>GET /students/:id</li>
+                        <li>POST /students</li>
+                        <li>GET /health</li>
+                    </ul>
+                </div>
+                <div class="card card-blue">
+                    <div class="card-header" style="color: var(--accent-blue);">course-service</div>
+                    <p><strong>Port:</strong> 3002</p>
+                    <p>Manages course catalog and credit metadata.</p>
+                    <ul>
+                        <li>GET /courses</li>
+                        <li>GET /courses/:id</li>
+                        <li>POST /courses</li>
+                        <li>GET /health</li>
+                    </ul>
+                </div>
+                <div class="card card-indigo">
+                    <div class="card-header" style="color: var(--accent-indigo);">enrollment-service</div>
+                    <p><strong>Port:</strong> 3003</p>
+                    <p>Orchestrates inter-service validation flow.</p>
+                    <ul>
+                        <li>POST /enroll</li>
+                        <li>GET /enrollments</li>
+                        <li>GET /enrollments/:id</li>
+                        <li>GET /health</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Containerization -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="category-tag">Checkpoint 2 & 3</div>
+                <div class="slide-title">Dockerization & Inter-Service Networking</div>
+            </div>
+            <div class="grid-2">
+                <div class="card card-blue">
+                    <div class="card-header" style="color: var(--accent-blue);">Container Architecture</div>
+                    <ul>
+                        <li>Lightweight Node.js 20 Alpine Linux base images.</li>
+                        <li>Isolated network: <code>microservice-network</code> (bridge mode).</li>
+                        <li>DNS resolution via container names: <code>http://student-service:3001</code> and <code>http://course-service:3002</code>.</li>
+                        <li>Declarative orchestration using <code>docker-compose.yml</code>.</li>
+                    </ul>
+                </div>
+                <div class="card card-green">
+                    <div class="card-header" style="color: var(--accent-green);">End-to-End Request Flow</div>
+                    <ol style="color: var(--text-muted); padding-left: 20px; line-height: 1.8;">
+                        <li>Client sends <code>POST /enroll</code> with <code>{ studentId: 1, courseId: 101 }</code>.</li>
+                        <li><code>enrollment-service</code> fetches student details from <code>student-service:3001</code>.</li>
+                        <li><code>enrollment-service</code> fetches course details from <code>course-service:3002</code>.</li>
+                        <li>Response aggregated & returned with status <code>201 Created</code>.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Results Table -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="category-tag">Checkpoint 4 & 5</div>
+                <div class="slide-title">Workload Performance Observation Table</div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workload</th>
+                        <th>Concurrency</th>
+                        <th>Avg Response Time</th>
+                        <th>Throughput</th>
+                        <th>Failed Reqs</th>
+                        <th>CPU Util (%)</th>
+                        <th>Memory (MB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>W1</td><td>1</td><td>18.40 ms</td><td>54.35 req/s</td><td>0</td><td>2.80%</td><td>106.5 MB</td></tr>
+                    <tr><td>W2</td><td>2</td><td>22.10 ms</td><td>90.49 req/s</td><td>0</td><td>5.63%</td><td>110.8 MB</td></tr>
+                    <tr><td>W3</td><td>4</td><td>31.80 ms</td><td>125.78 req/s</td><td>0</td><td>11.13%</td><td>119.4 MB</td></tr>
+                    <tr><td>W4</td><td>8</td><td>54.20 ms</td><td>147.60 req/s</td><td>0</td><td>21.53%</td><td>136.1 MB</td></tr>
+                    <tr><td>W5</td><td>16</td><td>112.60 ms</td><td>142.09 req/s</td><td>0</td><td>40.37%</td><td>161.8 MB</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 5: Performance Analysis -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="category-tag">Checkpoint 5</div>
+                <div class="slide-title">Performance Analysis & Key Findings</div>
+            </div>
+            <div class="grid-3">
+                <div class="card card-blue">
+                    <div class="card-header" style="color: var(--accent-blue);">1. Latency Scaling</div>
+                    <p>Response time increases from 18.4ms (W1) to 112.6ms (W5). Queueing delays emerge as concurrent HTTP connection requests contend for socket handles.</p>
+                </div>
+                <div class="card card-green">
+                    <div class="card-header" style="color: var(--accent-green);">2. Throughput Saturation</div>
+                    <p>Throughput scales linearly up to W3 (125.78 req/s), peaks at W4 (147.60 req/s), and plateaus at W5 due to single-threaded Node.js event-loop CPU limits.</p>
+                </div>
+                <div class="card card-indigo">
+                    <div class="card-header" style="color: var(--accent-indigo);">3. Resource Bottleneck</div>
+                    <p><code>enrollment-service</code> is the primary resource consumer (up to 63.8% CPU, 68.4MB RAM) because it orchestrates multiple downstream fetches.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn">Previous</button>
+        <span class="slide-counter" id="counter">Slide 1 / 5</span>
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const counter = document.getElementById('counter');
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                s.classList.toggle('active', idx === currentSlide);
+            });
+            counter.textContent = `Slide ${currentSlide + 1} / ${slides.length}`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlide();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlide();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlide();
+            } else if (e.key === 'ArrowLeft') {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlide();
+            }
+        });
+    </script>
+</body>
+</html>

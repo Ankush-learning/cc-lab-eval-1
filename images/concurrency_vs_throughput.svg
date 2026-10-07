@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="480" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="throughputGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#34d399" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#34d399" stop-opacity="0.0"/>
+        </linearGradient>
+    </defs>
+    
+    <rect width="800" height="480" rx="12" fill="#0f172a"/>
+    <rect x="1" y="1" width="798" height="478" rx="11" fill="none" stroke="#1e293b" stroke-width="2"/>
+    
+    <text x="400" y="36" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Concurrent Requests vs Throughput</text>
+    <text x="25" y="240" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle" transform="rotate(-90, 25, 240)">Throughput (requests / sec)</text>
+    <text x="400" y="468" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Concurrent Requests (Workload Level)</text>
+
+    <!-- Grid Lines & Y Axis -->
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="424" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">0</text>
+
+    <line x1="80" y1="348" x2="760" y2="348" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="352" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">34</text>
+
+    <line x1="80" y1="276" x2="760" y2="276" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="280" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">68</text>
+
+    <line x1="80" y1="204" x2="760" y2="204" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="208" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">102</text>
+
+    <line x1="80" y1="132" x2="760" y2="132" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="136" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">136</text>
+
+    <line x1="80" y1="60" x2="760" y2="60" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="64" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">170</text>
+
+    <!-- X Labels -->
+    <text x="80" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W1 (1 req)</text>
+    <text x="250" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W2 (2 req)</text>
+    <text x="420" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W3 (4 req)</text>
+    <text x="590" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W4 (8 req)</text>
+    <text x="760" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W5 (16 req)</text>
+
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Path & Fill -->
+    <path d="M 80 304.8 L 250 228.2 L 420 153.3 L 590 107.1 L 760 118.8 L 760 420 L 80 420 Z" fill="url(#throughputGrad)"/>
+    <path d="M 80 304.8 C 165 304.8, 165 228.2, 250 228.2 C 335 228.2, 335 153.3, 420 153.3 C 505 153.3, 505 107.1, 590 107.1 C 675 107.1, 675 118.8, 760 118.8" fill="none" stroke="#34d399" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Dots & Values -->
+    <circle cx="80" cy="304.8" r="6" fill="#34d399" stroke="#0f172a" stroke-width="3"/>
+    <text x="80" y="292.8" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">54.35 req/s</text>
+
+    <circle cx="250" cy="228.2" r="6" fill="#34d399" stroke="#0f172a" stroke-width="3"/>
+    <text x="250" y="216.2" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">90.49 req/s</text>
+
+    <circle cx="420" cy="153.3" r="6" fill="#34d399" stroke="#0f172a" stroke-width="3"/>
+    <text x="420" y="141.3" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">125.78 req/s</text>
+
+    <circle cx="590" cy="107.1" r="7" fill="#34d399" stroke="#0f172a" stroke-width="3"/>
+    <text x="590" y="93.1" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">147.60 req/s (Peak)</text>
+
+    <circle cx="760" cy="118.8" r="6" fill="#34d399" stroke="#0f172a" stroke-width="3"/>
+    <text x="760" y="106.8" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">142.09 req/s</text>
+</svg>

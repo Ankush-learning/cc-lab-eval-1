@@ -1,0 +1,38 @@
+services:
+
+  student-service:
+    build: ./student-service
+    container_name: student-service
+    ports:
+      - "3001:3001"
+    networks:
+      - microservice-network
+    restart: always
+
+  course-service:
+    build: ./course-service
+    container_name: course-service
+    ports:
+      - "3002:3002"
+    networks:
+      - microservice-network
+    restart: always
+
+  enrollment-service:
+    build: ./enrollment-service
+    container_name: enrollment-service
+    ports:
+      - "3003:3003"
+    networks:
+      - microservice-network
+    environment:
+      - STUDENT_SERVICE_URL=http://student-service:3001
+      - COURSE_SERVICE_URL=http://course-service:3002
+    depends_on:
+      - student-service
+      - course-service
+    restart: always
+
+networks:
+  microservice-network:
+    driver: bridge

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="500" rx="12" fill="#0f172a"/>
+    <rect x="1" y="1" width="798" height="498" rx="11" fill="none" stroke="#1e293b" stroke-width="2"/>
+    
+    <text x="400" y="36" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" text-anchor="middle">Concurrent Requests vs Memory Utilization (MB)</text>
+    <text x="25" y="250" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle" transform="rotate(-90, 25, 250)">Memory Footprint (MB)</text>
+    <text x="400" y="470" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Concurrent Requests (Workload Level)</text>
+
+    <!-- Grid Lines -->
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="424" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">0</text>
+
+    <line x1="80" y1="350" x2="760" y2="350" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="354" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">36</text>
+
+    <line x1="80" y1="280" x2="760" y2="280" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="284" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">72</text>
+
+    <line x1="80" y1="210" x2="760" y2="210" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="214" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">108</text>
+
+    <line x1="80" y1="140" x2="760" y2="140" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="144" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">144</text>
+
+    <line x1="80" y1="70" x2="760" y2="70" stroke="#334155" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="68" y="74" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">180</text>
+
+    <!-- X Labels -->
+    <text x="80" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W1 (1)</text>
+    <text x="250" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W2 (2)</text>
+    <text x="420" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W3 (4)</text>
+    <text x="590" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W4 (8)</text>
+    <text x="760" y="445" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">W5 (16)</text>
+
+    <line x1="80" y1="420" x2="760" y2="420" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Total Memory line (#fbbf24) -->
+    <path d="M 80 213 C 165 213, 165 204.6, 250 204.6 C 335 204.6, 335 187.8, 420 187.8 C 505 187.8, 505 155.3, 590 155.3 C 675 155.3, 675 105.3, 760 105.3" fill="none" stroke="#fbbf24" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="80" cy="213" r="5" fill="#fbbf24"/>
+    <circle cx="250" cy="204.6" r="5" fill="#fbbf24"/>
+    <circle cx="420" cy="187.8" r="5" fill="#fbbf24"/>
+    <circle cx="590" cy="155.3" r="5" fill="#fbbf24"/>
+    <circle cx="760" cy="105.3" r="5" fill="#fbbf24"/>
+
+    <!-- enrollment-service line (#818cf8) -->
+    <path d="M 80 345 C 165 345, 165 339.7, 250 339.7 C 335 339.7, 335 330.8, 420 330.8 C 505 330.8, 505 313.6, 590 313.6 C 675 313.6, 675 286.7, 760 286.7" fill="none" stroke="#818cf8" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="80" cy="345" r="5" fill="#818cf8"/>
+    <circle cx="250" cy="339.7" r="5" fill="#818cf8"/>
+    <circle cx="420" cy="330.8" r="5" fill="#818cf8"/>
+    <circle cx="590" cy="313.6" r="5" fill="#818cf8"/>
+    <circle cx="760" cy="286.7" r="5" fill="#818cf8"/>
+
+    <!-- student-service line (#34d399) -->
+    <path d="M 80 353.4 C 165 353.4, 165 351.6, 250 351.6 C 335 351.6, 335 347.1, 420 347.1 C 505 347.1, 505 338.5, 590 338.5 C 675 338.5, 675 325.8, 760 325.8" fill="none" stroke="#34d399" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="80" cy="353.4" r="5" fill="#34d399"/>
+    <circle cx="250" cy="351.6" r="5" fill="#34d399"/>
+    <circle cx="420" cy="347.1" r="5" fill="#34d399"/>
+    <circle cx="590" cy="338.5" r="5" fill="#34d399"/>
+    <circle cx="760" cy="325.8" r="5" fill="#34d399"/>
+
+    <!-- course-service line (#f0abfc) -->
+    <path d="M 80 354.2 C 165 354.2, 165 352.8, 250 352.8 C 335 352.8, 335 349.5, 420 349.5 C 505 349.5, 505 342.6, 590 342.6 C 675 342.6, 675 332.1, 760 332.1" fill="none" stroke="#f0abfc" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="80" cy="354.2" r="5" fill="#f0abfc"/>
+    <circle cx="250" cy="352.8" r="5" fill="#f0abfc"/>
+    <circle cx="420" cy="349.5" r="5" fill="#f0abfc"/>
+    <circle cx="590" cy="342.6" r="5" fill="#f0abfc"/>
+    <circle cx="760" cy="332.1" r="5" fill="#f0abfc"/>
+
+    <!-- Legends -->
+    <rect x="50" y="475" width="16" height="12" rx="3" fill="#818cf8"/>
+    <text x="72" y="485" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">enrollment-service (Max 68.4MB)</text>
+
+    <rect x="290" y="475" width="16" height="12" rx="3" fill="#34d399"/>
+    <text x="312" y="485" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">student-service</text>
+
+    <rect x="460" y="475" width="16" height="12" rx="3" fill="#f0abfc"/>
+    <text x="482" y="485" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">course-service</text>
+
+    <rect x="630" y="475" width="16" height="12" rx="3" fill="#fbbf24"/>
+    <text x="652" y="485" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600">Total Memory</text>
+</svg>
