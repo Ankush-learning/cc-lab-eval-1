@@ -1,56 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="900" rx="16" fill="#0b0f19"/>
-    <rect x="1" y="1" width="1198" height="898" rx="15" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <rect width="1200" height="900" rx="16" fill="#0B0F19"/>
+    <rect x="1" y="1" width="1198" height="898" rx="15" fill="none" stroke="#1E293B" stroke-width="2"/>
     
-    <text x="600" y="45" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800" text-anchor="middle">Microservices Performance Evaluation Dashboard</text>
-    <text x="600" y="70" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">Measured Metrics under Varying Concurrency Workloads (W1 - W5)</text>
+    <text x="600" y="45" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800" text-anchor="middle">Microservices Performance Evaluation Executive Dashboard</text>
+    <text x="600" y="70" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">Measured Performance &amp; Resource Metrics under Varying Concurrency Workloads (W1 - W5)</text>
 
     <!-- Sub-Chart 1: Response Time -->
     <g transform="translate(40, 90)">
-        <text x="270" y="30" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">1. Response Time vs Concurrency</text>
-        <rect y="40" width="530" height="340" rx="10" fill="#0f172a" stroke="#1e293b"/>
-        <path d="M 60 320 C 150 315, 240 295, 320 250 C 400 180, 450 100, 480 70" fill="none" stroke="#38bdf8" stroke-width="4"/>
-        <circle cx="60" cy="320" r="5" fill="#38bdf8"/><text x="60" y="308" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">18.4ms</text>
-        <circle cx="165" cy="312" r="5" fill="#38bdf8"/><text x="165" y="300" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">22.1ms</text>
-        <circle cx="270" cy="292" r="5" fill="#38bdf8"/><text x="270" y="280" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">31.8ms</text>
-        <circle cx="375" cy="230" r="5" fill="#38bdf8"/><text x="375" y="218" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">54.2ms</text>
-        <circle cx="480" cy="70" r="5" fill="#38bdf8"/><text x="480" y="58" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">112.6ms</text>
+        <text x="270" y="30" fill="#38BDF8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">1. Latency Scaling (Response Time vs Concurrency)</text>
+        <rect y="40" width="530" height="340" rx="10" fill="#0F172A" stroke="#1E293B"/>
+        <path d="M 60 320 C 150 315, 240 295, 320 250 C 400 180, 450 100, 480 70" fill="none" stroke="#38BDF8" stroke-width="4"/>
+        <circle cx="60" cy="320" r="5" fill="#38BDF8"/><text x="60" y="308" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">18.4ms</text>
+        <circle cx="165" cy="312" r="5" fill="#38BDF8"/><text x="165" y="300" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">22.1ms</text>
+        <circle cx="270" cy="292" r="5" fill="#38BDF8"/><text x="270" y="280" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">31.8ms</text>
+        <circle cx="375" cy="230" r="5" fill="#38BDF8"/><text x="375" y="218" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">54.2ms</text>
+        <circle cx="480" cy="70" r="6" fill="#F43F5E"/><text x="480" y="58" fill="#F43F5E" font-size="12" font-weight="800" text-anchor="middle">112.6ms</text>
     </g>
 
     <!-- Sub-Chart 2: Throughput -->
     <g transform="translate(630, 90)">
-        <text x="270" y="30" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">2. Throughput vs Concurrency</text>
-        <rect y="40" width="530" height="340" rx="10" fill="#0f172a" stroke="#1e293b"/>
-        <path d="M 60 270 C 150 180, 250 110, 375 70 C 420 70, 450 80, 480 90" fill="none" stroke="#34d399" stroke-width="4"/>
-        <circle cx="60" cy="270" r="5" fill="#34d399"/><text x="60" y="258" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">54.3</text>
-        <circle cx="165" cy="180" r="5" fill="#34d399"/><text x="165" y="168" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">90.5</text>
-        <circle cx="270" cy="110" r="5" fill="#34d399"/><text x="270" y="98" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">125.8</text>
-        <circle cx="375" cy="70" r="6" fill="#34d399"/><text x="375" y="58" fill="#34d399" font-size="12" font-weight="800" text-anchor="middle">147.6 (Peak)</text>
-        <circle cx="480" cy="90" r="5" fill="#34d399"/><text x="480" y="78" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">142.1</text>
+        <text x="270" y="30" fill="#34D399" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">2. System Capacity (Throughput vs Concurrency)</text>
+        <rect y="40" width="530" height="340" rx="10" fill="#0F172A" stroke="#1E293B"/>
+        <path d="M 60 270 C 150 180, 250 110, 375 70 C 420 70, 450 80, 480 90" fill="none" stroke="#34D399" stroke-width="4"/>
+        <circle cx="60" cy="270" r="5" fill="#34D399"/><text x="60" y="258" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">54.3</text>
+        <circle cx="165" cy="180" r="5" fill="#34D399"/><text x="165" y="168" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">90.5</text>
+        <circle cx="270" cy="110" r="5" fill="#34D399"/><text x="270" y="98" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">125.8</text>
+        <circle cx="375" cy="70" r="6" fill="#34D399"/><text x="375" y="58" fill="#34D399" font-size="12" font-weight="800" text-anchor="middle">147.6 req/s (Peak)</text>
+        <circle cx="480" cy="90" r="5" fill="#34D399"/><text x="480" y="78" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">142.1</text>
     </g>
 
     <!-- Sub-Chart 3: CPU Utilization -->
     <g transform="translate(40, 480)">
-        <text x="270" y="30" fill="#f43f5e" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">3. CPU Utilization per Microservice (%)</text>
-        <rect y="40" width="530" height="360" rx="10" fill="#0f172a" stroke="#1e293b"/>
-        <path d="M 60 320 L 165 300 L 270 260 L 375 170 L 480 60" fill="none" stroke="#818cf8" stroke-width="3"/>
-        <path d="M 60 340 L 165 330 L 270 310 L 375 270 L 480 200" fill="none" stroke="#34d399" stroke-width="3"/>
-        <path d="M 60 345 L 165 335 L 270 315 L 375 275 L 480 210" fill="none" stroke="#f0abfc" stroke-width="3"/>
-        <text x="30" y="380" fill="#818cf8" font-size="11" font-weight="600">■ enrollment-service (Max 63.8%)</text>
-        <text x="230" y="380" fill="#34d399" font-size="11" font-weight="600">■ student-service</text>
-        <text x="370" y="380" fill="#f0abfc" font-size="11" font-weight="600">■ course-service</text>
+        <text x="270" y="30" fill="#818CF8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">3. CPU Utilization per Microservice Container (%)</text>
+        <rect y="40" width="530" height="360" rx="10" fill="#0F172A" stroke="#1E293B"/>
+        <path d="M 60 320 L 165 300 L 270 260 L 375 170 L 480 60" fill="none" stroke="#818CF8" stroke-width="3.5"/>
+        <path d="M 60 340 L 165 330 L 270 310 L 375 270 L 480 200" fill="none" stroke="#34D399" stroke-width="3"/>
+        <path d="M 60 345 L 165 335 L 270 315 L 375 275 L 480 210" fill="none" stroke="#F0ABFC" stroke-width="3"/>
+        <text x="30" y="380" fill="#818CF8" font-size="11" font-weight="700">■ enrollment-service (Max 63.8%)</text>
+        <text x="230" y="380" fill="#34D399" font-size="11" font-weight="700">■ student-service</text>
+        <text x="370" y="380" fill="#F0ABFC" font-size="11" font-weight="700">■ course-service</text>
     </g>
 
     <!-- Sub-Chart 4: Memory Utilization -->
     <g transform="translate(630, 480)">
-        <text x="270" y="30" fill="#fbbf24" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">4. Memory Footprint per Microservice (MB)</text>
-        <rect y="40" width="530" height="360" rx="10" fill="#0f172a" stroke="#1e293b"/>
-        <path d="M 60 300 L 165 285 L 270 260 L 375 210 L 480 140" fill="none" stroke="#818cf8" stroke-width="3"/>
-        <path d="M 60 320 L 165 315 L 270 305 L 375 280 L 480 250" fill="none" stroke="#34d399" stroke-width="3"/>
-        <path d="M 60 325 L 165 320 L 270 310 L 375 290 L 480 265" fill="none" stroke="#f0abfc" stroke-width="3"/>
-        <text x="30" y="380" fill="#818cf8" font-size="11" font-weight="600">■ enrollment-service (Max 68.4MB)</text>
-        <text x="230" y="380" fill="#34d399" font-size="11" font-weight="600">■ student-service</text>
-        <text x="370" y="380" fill="#f0abfc" font-size="11" font-weight="600">■ course-service</text>
+        <text x="270" y="30" fill="#FBBF24" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">4. RAM Allocation &amp; Footprint per Container (MB)</text>
+        <rect y="40" width="530" height="360" rx="10" fill="#0F172A" stroke="#1E293B"/>
+        <path d="M 60 250 L 165 240 L 270 220 L 375 170 L 480 110" fill="none" stroke="#FBBF24" stroke-width="3.5"/>
+        <path d="M 60 300 L 165 285 L 270 260 L 375 210 L 480 140" fill="none" stroke="#818CF8" stroke-width="3"/>
+        <path d="M 60 320 L 165 315 L 270 305 L 375 280 L 480 250" fill="none" stroke="#34D399" stroke-width="3"/>
+        <text x="30" y="380" fill="#FBBF24" font-size="11" font-weight="700">■ Total Memory (Max 161.8MB)</text>
+        <text x="240" y="380" fill="#818CF8" font-size="11" font-weight="700">■ enrollment-service</text>
+        <text x="380" y="380" fill="#34D399" font-size="11" font-weight="700">■ student-service</text>
     </g>
 </svg>
