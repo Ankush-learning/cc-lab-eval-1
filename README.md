@@ -98,6 +98,47 @@ Three independent RESTful microservices were implemented using Node.js and Expre
 
 Each microservice contains its own dedicated `Dockerfile` using optimized lightweight base images (`node:20-alpine`).
 
+#### Multi-Container Deployment via `docker-compose.yml`:
+```yaml
+services:
+  student-service:
+    build: ./student-service
+    container_name: student-service
+    ports:
+      - "3001:3001"
+    networks:
+      - microservice-network
+    restart: always
+
+  course-service:
+    build: ./course-service
+    container_name: course-service
+    ports:
+      - "3002:3002"
+    networks:
+      - microservice-network
+    restart: always
+
+  enrollment-service:
+    build: ./enrollment-service
+    container_name: enrollment-service
+    ports:
+      - "3003:3003"
+    networks:
+      - microservice-network
+    environment:
+      - STUDENT_SERVICE_URL=http://student-service:3001
+      - COURSE_SERVICE_URL=http://course-service:3002
+    depends_on:
+      - student-service
+      - course-service
+    restart: always
+
+networks:
+  microservice-network:
+    driver: bridge
+```
+
 ---
 
 ### Checkpoint 3 — Inter-Service Communication
@@ -119,46 +160,59 @@ Each microservice contains its own dedicated `Dockerfile` using optimized lightw
 
 #### 📊 Measured Performance Observation Table
 
-| Workload Level | Concurrency | Total Requests | Average Response Time (ms) | Throughput (req/sec) | Failed Requests | Overall CPU Utilization (%) | Total Memory Utilization (MB) |
+| Workload Level | Concurrency | Total Requests | Average Response Time (ms) | Throughput (req/sec) | Failed Requests | Total CPU Utilization (%) | Total Memory Utilization (MB) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **W1** | **1** | 100 | **16.3 ms** | **61.3 req/s** | 0 | **2.80 %** | **106.5 MB** |
-| **W2** | **2** | 200 | **16.7 ms** | **119.8 req/s** | 0 | **5.63 %** | **110.8 MB** |
-| **W3** | **4** | 400 | **14.0 ms** | **285.7 req/s** | 0 | **11.13 %** | **119.4 MB** |
-| **W4** | **8** | 800 | **27.6 ms** | **289.9 req/s** | 0 | **21.53 %** | **136.1 MB** |
-| **W5** | **16** | 1600 | **50.4 ms** | **317.5 req/s** | 0 | **40.37 %** | **161.8 MB** |
+| **W1** | **1** | 100 | **16.3 ms** | **61.3 rps** | 0 | **32.0 %** | **74.6 MB** |
+| **W2** | **2** | 200 | **16.7 ms** | **119.5 rps** | 0 | **74.1 %** | **77.4 MB** |
+| **W3** | **4** | 400 | **14.0 ms** | **283.1 rps** | 0 | **158.1 %** | **80.5 MB** |
+| **W4** | **8** | 800 | **27.6 ms** | **283.6 rps** | 0 | **200.5 %** | **84.4 MB** |
+| **W5** | **16** | 1600 | **50.4 ms** | **295.7 rps** | 0 | **202.3 %** | **86.3 MB** |
 
 ---
 
-#### 📈 Professional Performance Graphs (Matplotlib Generated)
+#### 📈 Complete 6 Performance Evaluation Graphs
 
 ##### Graph 1: Concurrency vs. Average Response Time
-![Graph 1: Concurrency vs Response Time](images/concurrency_vs_response_time.png)
+*Illustrates latency escalation due to queueing and thread contention under elevated client concurrency.*
+![Graph 1: Concurrency vs Average Response Time](images/graph1_response_time.png)
 
-##### Graph 2: Concurrency vs. Throughput
-![Graph 2: Concurrency vs Throughput](images/concurrency_vs_throughput.png)
+##### Graph 2: Concurrency vs. System Throughput
+*Shows near-linear throughput scaling up to 4–8 concurrent threads, followed by saturation at ~284 RPS at 16 threads.*
+![Graph 2: Concurrency vs System Throughput](images/graph2_throughput.png)
 
-##### Graph 3: Concurrency vs. CPU Utilization
-![Graph 3: Concurrency vs CPU Utilization](images/concurrency_vs_cpu.png)
+##### Graph 3: Concurrency vs. Total CPU Utilization (%)
+*Depicts the cumulative CPU demand across all microservice containers as concurrency grows.*
+![Graph 3: Concurrency vs Total CPU Utilization](images/graph3_total_cpu.png)
 
-##### Graph 4: Concurrency vs. Memory Utilization
-![Graph 4: Concurrency vs Memory Utilization](images/concurrency_vs_memory.png)
+##### Graph 4: Concurrency vs. Total Memory Usage (MB)
+*Demonstrates stable baseline memory footprint with gradual expansion under higher concurrent request buffering.*
+![Graph 4: Concurrency vs Total Memory Usage](images/graph4_total_memory.png)
 
-##### Performance Overview Dashboard
-![Performance Dashboard](images/performance_dashboard.png)
+##### Graph 5: Service-Level CPU Breakdown
+*Clearly reveals that `enrollment-service` (orchestrator) consumes substantially more CPU than downstream services due to orchestrator socket and JSON processing overhead.*
+![Graph 5: Service-Level CPU Breakdown](images/graph5_service_cpu_breakdown.png)
+
+##### Graph 6: Service-Level Memory Breakdown
+*Compares memory allocations across `enrollment-service`, `student-service`, and `course-service`.*
+![Graph 6: Service-Level Memory Breakdown](images/graph6_service_memory_breakdown.png)
 
 ---
 
 ### 💡 Performance Analysis & Findings
 
-1. **Latency Escalation Curve:**
-   - Response time remains optimal under low to moderate concurrency (16.3 ms at W1, 16.7 ms at W2, 14.0 ms at W3).
+1. **Latency Escalation Curve (Graph 1):**
+   - Response time remains low under low to moderate concurrency (16.3 ms at W1, 16.7 ms at W2, 14.0 ms at W3).
    - Under higher concurrency (W4=8, W5=16), average latency escalates to **27.6 ms** and **50.4 ms** due to thread queueing and socket connection contention.
 
-2. **Throughput Capacity Scaling:**
-   - Throughput scales rapidly from 61.3 req/s (W1) to **285.7 req/s (W3)** and reaches **317.5 req/s (W5)**.
+2. **Throughput Saturation (Graph 2):**
+   - Throughput scales rapidly from 61.3 rps (W1) to **283.1 rps (W3)**, saturating at **295.7 rps (W5)**.
 
-3. **Bottleneck Microservice:**
-   - `enrollment-service` is the primary resource consumer (63.8% CPU, 68.4 MB RAM at W5) because it orchestrates outbound requests to `student-service` and `course-service`.
+3. **Cumulative CPU Demand (Graph 3 & 5):**
+   - Total CPU demand increases up to 202.3% at W5.
+   - `enrollment-service` is the primary resource bottleneck (consuming up to 131.5% CPU at W5), while `student-service` (33.1%) and `course-service` (36.6%) remain low.
+
+4. **Memory Allocations (Graph 4 & 6):**
+   - Total memory expands moderately from 74.6 MB (W1) to 86.3 MB (W5). `enrollment-service` uses 38.2 MB at W5, compared to ~23 MB for `student-service` and ~25 MB for `course-service`.
 
 ---
 
