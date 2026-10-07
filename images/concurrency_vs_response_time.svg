@@ -1,87 +1,102 @@
-<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient id="respGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/>
-            <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"/>
-        </linearGradient>
-    </defs>
-    
-    <rect width="1200" height="675" rx="16" fill="#0B0F19"/>
-    <rect x="1" y="1" width="1198" height="673" rx="15" fill="none" stroke="#1E293B" stroke-width="2"/>
+<svg width="1000" height="650" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer Dark Canvas Background -->
+    <rect width="1000" height="650" fill="#0B0F19"/>
 
-    <!-- Header Badge -->
-    <rect x="470" y="32" width="260" height="32" rx="16" fill="#1E293B"/>
-    <text x="600" y="53" fill="#38BDF8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">LATENCY PERFORMANCE CURVE</text>
+    <!-- Header Titles outside Plot Box -->
+    <text x="32" y="38" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700">Graph 1: Concurrency vs. Average Response Time</text>
+    <text x="32" y="66" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400">Illustrates latency escalation due to queueing and thread contention under elevated client concurrency.</text>
 
-    <text x="600" y="98" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800" text-anchor="middle">Concurrent Requests vs Average Response Time (ms)</text>
-    <text x="600" y="123" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">Measured latency scaling from W1 (1 req) to W5 (16 req)</text>
+    <!-- White Plot Box -->
+    <rect x="32" y="85" width="936" height="530" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 
-    <!-- Chart Frame -->
-    <rect x="100" y="160" width="1000" height="420" rx="12" fill="#0F172A" stroke="#1E293B"/>
+    <!-- Inner Chart Title -->
+    <text x="500" y="125" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" text-anchor="middle">Graph 1: Concurrency vs. Average Response Time</text>
 
-    <!-- Y-Axis Grid Lines & Labels -->
-    <line x1="140" y1="530" x2="1060" y2="530" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="534" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">0 ms</text>
+    <!-- Plot Area Bounds: X [100 to 920], Y [540 down to 160] -->
+    <!-- Grid Lines & Y-Axis Ticks: 15, 20, 25, 30, 35, 40, 45, 50 -->
+    <!-- Scale: Y=15 -> 540, Y=50 -> 160. Scale factor = (540 - 160) / 35 = 10.857 px/ms -->
 
-    <line x1="140" y1="460" x2="1060" y2="460" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="464" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">25 ms</text>
+    <!-- Y Grid Lines -->
+    <line x1="100" y1="540" x2="920" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">15</text>
 
-    <line x1="140" y1="390" x2="1060" y2="390" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="394" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">50 ms</text>
+    <line x1="100" y1="485.7" x2="920" y2="485.7" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="490.7" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">20</text>
 
-    <line x1="140" y1="320" x2="1060" y2="320" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="324" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">75 ms</text>
+    <line x1="100" y1="431.4" x2="920" y2="431.4" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="436.4" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">25</text>
 
-    <line x1="140" y1="250" x2="1060" y2="250" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="254" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">100 ms</text>
+    <line x1="100" y1="377.1" x2="920" y2="377.1" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="382.1" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">30</text>
 
-    <line x1="140" y1="180" x2="1060" y2="180" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="184" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">125 ms</text>
+    <line x1="100" y1="322.8" x2="920" y2="322.8" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="327.8" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">35</text>
 
-    <!-- X-Axis Labels -->
-    <text x="180" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W1 (1 Concurrent)</text>
-    <text x="390" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W2 (2 Concurrent)</text>
-    <text x="600" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W3 (4 Concurrent)</text>
-    <text x="810" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W4 (8 Concurrent)</text>
-    <text x="1020" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W5 (16 Concurrent)</text>
+    <line x1="100" y1="268.5" x2="920" y2="268.5" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="273.5" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">40</text>
 
-    <line x1="140" y1="530" x2="1060" y2="530" stroke="#64748B" stroke-width="2"/>
+    <line x1="100" y1="214.2" x2="920" y2="214.2" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="219.2" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">45</text>
 
-    <!-- Area Gradient & Line Path -->
-    <path d="M 180 478.48 L 390 468.12 L 600 440.96 L 810 378.24 L 1020 214.72 L 1020 530 L 180 530 Z" fill="url(#respGrad)"/>
-    <path d="M 180 478.48 C 285 478.48, 285 468.12, 390 468.12 C 495 468.12, 495 440.96, 600 440.96 C 705 440.96, 705 378.24, 810 378.24 C 915 378.24, 915 214.72, 1020 214.72" fill="none" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+    <line x1="100" y1="160" x2="920" y2="160" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="165" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">50</text>
 
-    <!-- Data Nodes & Value Tags -->
-    <!-- W1 -->
-    <circle cx="180" cy="478.48" r="7" fill="#38BDF8" stroke="#0F172A" stroke-width="3"/>
-    <rect x="140" y="435" width="80" height="28" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="180" y="454" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">18.4 ms</text>
+    <!-- X Grid Lines & Ticks (Categorical numeric mapping for 1, 2, 4, 8, 16) -->
+    <!-- X positions: 1 -> 120, 2 -> 200, 4 -> 360, 8 -> 550, 16 -> 900 -->
 
-    <!-- W2 -->
-    <circle cx="390" cy="468.12" r="7" fill="#38BDF8" stroke="#0F172A" stroke-width="3"/>
-    <rect x="350" y="425" width="80" height="28" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="390" y="444" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">22.1 ms</text>
+    <line x1="120" y1="160" x2="120" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="120" y="562" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">1</text>
 
-    <!-- W3 -->
-    <circle cx="600" cy="440.96" r="7" fill="#38BDF8" stroke="#0F172A" stroke-width="3"/>
-    <rect x="560" y="398" width="80" height="28" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="600" y="417" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">31.8 ms</text>
+    <line x1="200" y1="160" x2="200" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="200" y="562" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">2</text>
 
-    <!-- W4 -->
-    <circle cx="810" cy="378.24" r="7" fill="#38BDF8" stroke="#0F172A" stroke-width="3"/>
-    <rect x="770" y="335" width="80" height="28" rx="6" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="810" y="354" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="800" text-anchor="middle">54.2 ms</text>
+    <line x1="360" y1="160" x2="360" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="360" y="562" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">4</text>
 
-    <!-- W5 -->
-    <circle cx="1020" cy="214.72" r="8" fill="#F43F5E" stroke="#0F172A" stroke-width="3"/>
-    <rect x="970" y="170" width="100" height="30" rx="6" fill="#9F1239" stroke="#F43F5E" stroke-width="1.5"/>
-    <text x="1020" y="190" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">112.6 ms</text>
+    <line x1="550" y1="160" x2="550" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="550" y="562" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">8</text>
 
-    <!-- Queueing Delay Callout -->
-    <rect x="740" y="240" width="220" height="42" rx="8" fill="#1E293B" stroke="#F43F5E" stroke-width="1.5"/>
-    <text x="850" y="258" fill="#F43F5E" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">⚠️ Queueing Delay Onset</text>
-    <text x="850" y="274" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">Socket contention at 16 concurrency</text>
+    <line x1="900" y1="160" x2="900" y2="540" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="900" y="562" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">16</text>
 
-    <!-- Axis Titles -->
-    <text x="600" y="635" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Workload Concurrency Level (Client Requests)</text>
+    <!-- Axes Titles -->
+    <text x="510" y="595" fill="#000000" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">Concurrency Level (Concurrent Clients)</text>
+    <text x="45" y="350" fill="#000000" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle" transform="rotate(-90, 45, 350)">Response Time (ms)</text>
+
+    <!-- Legend (Top Left Box inside plot area) -->
+    <rect x="110" y="145" width="190" height="38" rx="4" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+    <line x1="125" y1="164" x2="155" y2="164" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="140" cy="164" r="5" fill="#2563EB"/>
+    <text x="165" y="169" fill="#333333" font-family="sans-serif" font-size="13" font-weight="600">Avg Latency (ms)</text>
+
+    <!-- Data Line: (120, 525.88) -> (200, 521.54) -> (360, 550.86) -> (550, 403.14) -> (900, 155.65) -->
+    <polyline points="120,525.88 200,521.54 360,550.86 550,403.14 900,155.65" fill="none" stroke="#2563EB" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Data Nodes -->
+    <circle cx="120" cy="525.88" r="6" fill="#2563EB"/>
+    <circle cx="200" cy="521.54" r="6" fill="#2563EB"/>
+    <circle cx="360" cy="550.86" r="6" fill="#2563EB"/>
+    <circle cx="550" cy="403.14" r="6" fill="#2563EB"/>
+    <circle cx="900" cy="155.65" r="6" fill="#2563EB"/>
+
+    <!-- Value Callout Badges (White Box with Thin Grey Border & Bold Text) -->
+    <!-- Point 1: 16.3 ms -->
+    <rect x="86" y="500" width="68" height="20" rx="3" fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1"/>
+    <text x="120" y="514" fill="#000000" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">16.3 ms</text>
+
+    <!-- Point 2: 16.7 ms -->
+    <rect x="166" y="493" width="68" height="20" rx="3" fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1"/>
+    <text x="200" y="507" fill="#000000" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">16.7 ms</text>
+
+    <!-- Point 3: 14.0 ms -->
+    <rect x="326" y="525" width="68" height="20" rx="3" fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1"/>
+    <text x="360" y="539" fill="#000000" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">14.0 ms</text>
+
+    <!-- Point 4: 27.6 ms -->
+    <rect x="516" y="378" width="68" height="20" rx="3" fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1"/>
+    <text x="550" y="392" fill="#000000" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">27.6 ms</text>
+
+    <!-- Point 5: 50.4 ms -->
+    <rect x="866" y="130" width="68" height="20" rx="3" fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1"/>
+    <text x="900" y="144" fill="#000000" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">50.4 ms</text>
 </svg>

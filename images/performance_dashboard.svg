@@ -1,55 +1,56 @@
 <svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="900" rx="16" fill="#0B0F19"/>
-    <rect x="1" y="1" width="1198" height="898" rx="15" fill="none" stroke="#1E293B" stroke-width="2"/>
-    
-    <text x="600" y="45" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800" text-anchor="middle">Microservices Performance Evaluation Executive Dashboard</text>
-    <text x="600" y="70" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">Measured Performance &amp; Resource Metrics under Varying Concurrency Workloads (W1 - W5)</text>
+    <rect width="1200" height="900" fill="#0B0F19"/>
+
+    <text x="32" y="42" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800">Microservices Performance Evaluation — Benchmark Dashboard</text>
+    <text x="32" y="70" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400">Comprehensive experimental metrics measured across 5 workload concurrency levels (W1 - W5)</text>
 
     <!-- Sub-Chart 1: Response Time -->
-    <g transform="translate(40, 90)">
-        <text x="270" y="30" fill="#38BDF8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">1. Latency Scaling (Response Time vs Concurrency)</text>
-        <rect y="40" width="530" height="340" rx="10" fill="#0F172A" stroke="#1E293B"/>
-        <path d="M 60 320 C 150 315, 240 295, 320 250 C 400 180, 450 100, 480 70" fill="none" stroke="#38BDF8" stroke-width="4"/>
-        <circle cx="60" cy="320" r="5" fill="#38BDF8"/><text x="60" y="308" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">18.4ms</text>
-        <circle cx="165" cy="312" r="5" fill="#38BDF8"/><text x="165" y="300" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">22.1ms</text>
-        <circle cx="270" cy="292" r="5" fill="#38BDF8"/><text x="270" y="280" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">31.8ms</text>
-        <circle cx="375" cy="230" r="5" fill="#38BDF8"/><text x="375" y="218" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">54.2ms</text>
-        <circle cx="480" cy="70" r="6" fill="#F43F5E"/><text x="480" y="58" fill="#F43F5E" font-size="12" font-weight="800" text-anchor="middle">112.6ms</text>
+    <g transform="translate(32, 90)">
+        <rect width="550" height="370" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+        <text x="275" y="30" fill="#000000" font-family="sans-serif" font-size="16" font-weight="800" text-anchor="middle">Graph 1: Concurrency vs. Average Response Time</text>
+        <polyline points="60,310 120,305 240,320 380,230 500,80" fill="none" stroke="#2563EB" stroke-width="3"/>
+        <circle cx="60" cy="310" r="4" fill="#2563EB"/><text x="60" y="300" fill="#000" font-size="10" font-weight="700" text-anchor="middle">16.3ms</text>
+        <circle cx="120" cy="305" r="4" fill="#2563EB"/><text x="120" y="295" fill="#000" font-size="10" font-weight="700" text-anchor="middle">16.7ms</text>
+        <circle cx="240" cy="320" r="4" fill="#2563EB"/><text x="240" y="340" fill="#000" font-size="10" font-weight="700" text-anchor="middle">14.0ms</text>
+        <circle cx="380" cy="230" r="4" fill="#2563EB"/><text x="380" y="220" fill="#000" font-size="10" font-weight="700" text-anchor="middle">27.6ms</text>
+        <circle cx="500" cy="80" r="4" fill="#2563EB"/><text x="500" y="70" fill="#000" font-size="10" font-weight="800" text-anchor="middle">50.4ms</text>
+        <text x="275" y="355" fill="#000" font-size="12" font-weight="700" text-anchor="middle">Concurrency Level (Clients)</text>
     </g>
 
     <!-- Sub-Chart 2: Throughput -->
-    <g transform="translate(630, 90)">
-        <text x="270" y="30" fill="#34D399" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">2. System Capacity (Throughput vs Concurrency)</text>
-        <rect y="40" width="530" height="340" rx="10" fill="#0F172A" stroke="#1E293B"/>
-        <path d="M 60 270 C 150 180, 250 110, 375 70 C 420 70, 450 80, 480 90" fill="none" stroke="#34D399" stroke-width="4"/>
-        <circle cx="60" cy="270" r="5" fill="#34D399"/><text x="60" y="258" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">54.3</text>
-        <circle cx="165" cy="180" r="5" fill="#34D399"/><text x="165" y="168" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">90.5</text>
-        <circle cx="270" cy="110" r="5" fill="#34D399"/><text x="270" y="98" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">125.8</text>
-        <circle cx="375" cy="70" r="6" fill="#34D399"/><text x="375" y="58" fill="#34D399" font-size="12" font-weight="800" text-anchor="middle">147.6 req/s (Peak)</text>
-        <circle cx="480" cy="90" r="5" fill="#34D399"/><text x="480" y="78" fill="#FFF" font-size="11" font-weight="700" text-anchor="middle">142.1</text>
+    <g transform="translate(618, 90)">
+        <rect width="550" height="370" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+        <text x="275" y="30" fill="#000000" font-family="sans-serif" font-size="16" font-weight="800" text-anchor="middle">Graph 2: Concurrency vs. Throughput</text>
+        <polyline points="60,320 120,270 240,120 380,115 500,90" fill="none" stroke="#16A34A" stroke-width="3"/>
+        <circle cx="60" cy="320" r="4" fill="#16A34A"/><text x="60" y="310" fill="#000" font-size="10" font-weight="700" text-anchor="middle">61.3</text>
+        <circle cx="120" cy="270" r="4" fill="#16A34A"/><text x="120" y="260" fill="#000" font-size="10" font-weight="700" text-anchor="middle">119.8</text>
+        <circle cx="240" cy="120" r="4" fill="#16A34A"/><text x="240" y="110" fill="#000" font-size="10" font-weight="700" text-anchor="middle">285.7</text>
+        <circle cx="380" cy="115" r="4" fill="#16A34A"/><text x="380" y="105" fill="#000" font-size="10" font-weight="700" text-anchor="middle">289.9</text>
+        <circle cx="500" cy="90" r="4" fill="#16A34A"/><text x="500" y="80" fill="#000" font-size="10" font-weight="800" text-anchor="middle">317.5 req/s</text>
+        <text x="275" y="355" fill="#000" font-size="12" font-weight="700" text-anchor="middle">Concurrency Level (Clients)</text>
     </g>
 
     <!-- Sub-Chart 3: CPU Utilization -->
-    <g transform="translate(40, 480)">
-        <text x="270" y="30" fill="#818CF8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">3. CPU Utilization per Microservice Container (%)</text>
-        <rect y="40" width="530" height="360" rx="10" fill="#0F172A" stroke="#1E293B"/>
-        <path d="M 60 320 L 165 300 L 270 260 L 375 170 L 480 60" fill="none" stroke="#818CF8" stroke-width="3.5"/>
-        <path d="M 60 340 L 165 330 L 270 310 L 375 270 L 480 200" fill="none" stroke="#34D399" stroke-width="3"/>
-        <path d="M 60 345 L 165 335 L 270 315 L 375 275 L 480 210" fill="none" stroke="#F0ABFC" stroke-width="3"/>
-        <text x="30" y="380" fill="#818CF8" font-size="11" font-weight="700">■ enrollment-service (Max 63.8%)</text>
-        <text x="230" y="380" fill="#34D399" font-size="11" font-weight="700">■ student-service</text>
-        <text x="370" y="380" fill="#F0ABFC" font-size="11" font-weight="700">■ course-service</text>
+    <g transform="translate(32, 490)">
+        <rect width="550" height="370" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+        <text x="275" y="30" fill="#000000" font-family="sans-serif" font-size="16" font-weight="800" text-anchor="middle">Graph 3: Concurrency vs. CPU Utilization</text>
+        <polyline points="60,310 120,295 240,260 380,190 500,80" fill="none" stroke="#4F46E5" stroke-width="3"/>
+        <polyline points="60,320 120,310 240,295 380,265 500,210" fill="none" stroke="#16A34A" stroke-width="2.5"/>
+        <polyline points="60,322 120,312 240,297 380,268 500,215" fill="none" stroke="#D946EF" stroke-width="2.5"/>
+        <text x="60" y="355" fill="#4F46E5" font-size="11" font-weight="700">■ enrollment (63.8%)</text>
+        <text x="220" y="355" fill="#16A34A" font-size="11" font-weight="700">■ student (29.4%)</text>
+        <text x="370" y="355" fill="#D946EF" font-size="11" font-weight="700">■ course (27.9%)</text>
     </g>
 
     <!-- Sub-Chart 4: Memory Utilization -->
-    <g transform="translate(630, 480)">
-        <text x="270" y="30" fill="#FBBF24" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle">4. RAM Allocation &amp; Footprint per Container (MB)</text>
-        <rect y="40" width="530" height="360" rx="10" fill="#0F172A" stroke="#1E293B"/>
-        <path d="M 60 250 L 165 240 L 270 220 L 375 170 L 480 110" fill="none" stroke="#FBBF24" stroke-width="3.5"/>
-        <path d="M 60 300 L 165 285 L 270 260 L 375 210 L 480 140" fill="none" stroke="#818CF8" stroke-width="3"/>
-        <path d="M 60 320 L 165 315 L 270 305 L 375 280 L 480 250" fill="none" stroke="#34D399" stroke-width="3"/>
-        <text x="30" y="380" fill="#FBBF24" font-size="11" font-weight="700">■ Total Memory (Max 161.8MB)</text>
-        <text x="240" y="380" fill="#818CF8" font-size="11" font-weight="700">■ enrollment-service</text>
-        <text x="380" y="380" fill="#34D399" font-size="11" font-weight="700">■ student-service</text>
+    <g transform="translate(618, 490)">
+        <rect width="550" height="370" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+        <text x="275" y="30" fill="#000000" font-family="sans-serif" font-size="16" font-weight="800" text-anchor="middle">Graph 4: Concurrency vs. Memory Utilization</text>
+        <polyline points="60,240 120,230 240,210 380,175 500,120" fill="none" stroke="#EA580C" stroke-width="3"/>
+        <polyline points="60,300 120,295 240,285 380,265 500,240" fill="none" stroke="#4F46E5" stroke-width="2.5"/>
+        <polyline points="60,310 120,308 240,300 380,290 500,275" fill="none" stroke="#16A34A" stroke-width="2.5"/>
+        <text x="60" y="355" fill="#EA580C" font-size="11" font-weight="700">■ Total Memory (161.8MB)</text>
+        <text x="240" y="355" fill="#4F46E5" font-size="11" font-weight="700">■ enrollment</text>
+        <text x="360" y="355" fill="#16A34A" font-size="11" font-weight="700">■ student</text>
     </g>
 </svg>

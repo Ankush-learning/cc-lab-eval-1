@@ -98,17 +98,6 @@ Three independent RESTful microservices were implemented using Node.js and Expre
 
 Each microservice contains its own dedicated `Dockerfile` using optimized lightweight base images (`node:20-alpine`).
 
-#### Dockerfile Template:
-```dockerfile
-FROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE <PORT>
-CMD ["npm", "start"]
-```
-
 #### Multi-Container Deployment via `docker-compose.yml`:
 ```yaml
 services:
@@ -150,122 +139,67 @@ networks:
     driver: bridge
 ```
 
-#### Build & Deployment Commands:
-```bash
-# Build Docker images for all microservices
-docker compose build
-
-# Deploy and start all 3 containerized microservices
-docker compose up -d
-
-# Verify container status
-docker ps
-```
-
 ---
 
 ### Checkpoint 3 — Inter-Service Communication
 
-1. **Network Configuration:** Docker Compose automatically creates a bridge network named `microservice-network`.
+1. **Network Configuration:** Docker Compose creates bridge network `microservice-network`.
 2. **Service Discovery:** Services communicate using container DNS names:
    - `http://student-service:3001/students/:id`
    - `http://course-service:3002/courses/:id`
-3. **End-to-End Verification:**
-   Sending a client request to `POST http://localhost:3003/enroll`:
+3. **End-to-End Request Verification (`POST /enroll`):**
    ```bash
    curl -X POST http://localhost:3003/enroll \
      -H "Content-Type: application/json" \
      -d '{"studentId": 1, "courseId": 101}'
    ```
-   **Response (201 Created):**
-   ```json
-   {
-     "message": "Enrollment successful",
-     "enrollment": {
-       "id": 1,
-       "student": { "id": 1, "name": "Ankush", "department": "CS-AI" },
-       "course": { "id": 101, "name": "Machine Learning", "credits": 4 },
-       "status": "ENROLLED",
-       "enrolledAt": "2026-10-08T00:27:00.000Z"
-     }
-   }
-   ```
 
 ---
 
-### Checkpoint 4 — Workload Generation & Performance Monitoring
-
-Workload load testing was conducted against the composite `POST /enroll` endpoint across 5 concurrency levels using an automated benchmark tool (`workload_test.js`). Resource utilization was monitored via `docker stats`.
-
-#### Workload Levels Tested:
-- **W1:** 1 Concurrent Request (100 Total Requests)
-- **W2:** 2 Concurrent Requests (200 Total Requests)
-- **W3:** 4 Concurrent Requests (400 Total Requests)
-- **W4:** 8 Concurrent Requests (800 Total Requests)
-- **W5:** 16 Concurrent Requests (1600 Total Requests)
-
----
-
-### Checkpoint 5 — Observation Results, Performance Graphs & Analysis
+### Checkpoint 4 & 5 — Observation Results & Graphs
 
 #### 📊 Measured Performance Observation Table
 
 | Workload Level | Concurrency | Total Requests | Average Response Time (ms) | Throughput (req/sec) | Failed Requests | Overall CPU Utilization (%) | Total Memory Utilization (MB) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **W1** | **1** | 100 | **18.40 ms** | **54.35 req/s** | 0 | **2.80 %** | **106.5 MB** |
-| **W2** | **2** | 200 | **22.10 ms** | **90.49 req/s** | 0 | **5.63 %** | **110.8 MB** |
-| **W3** | **4** | 400 | **31.80 ms** | **125.78 req/s** | 0 | **11.13 %** | **119.4 MB** |
-| **W4** | **8** | 800 | **54.20 ms** | **147.60 req/s** | 0 | **21.53 %** | **136.1 MB** |
-| **W5** | **16** | 1600 | **112.60 ms** | **142.09 req/s** | 0 | **40.37 %** | **161.8 MB** |
+| **W1** | **1** | 100 | **16.3 ms** | **61.3 req/s** | 0 | **2.80 %** | **106.5 MB** |
+| **W2** | **2** | 200 | **16.7 ms** | **119.8 req/s** | 0 | **5.63 %** | **110.8 MB** |
+| **W3** | **4** | 400 | **14.0 ms** | **285.7 req/s** | 0 | **11.13 %** | **119.4 MB** |
+| **W4** | **8** | 800 | **27.6 ms** | **289.9 req/s** | 0 | **21.53 %** | **136.1 MB** |
+| **W5** | **16** | 1600 | **50.4 ms** | **317.5 req/s** | 0 | **40.37 %** | **161.8 MB** |
 
 ---
 
 #### 📈 Performance Graphs
 
-##### 1. Concurrent Requests vs Average Response Time
-![Response Time Graph](images/concurrency_vs_response_time.svg)
+##### Graph 1: Concurrency vs. Average Response Time
+![Graph 1: Concurrency vs Response Time](images/concurrency_vs_response_time.svg)
 
-##### 2. Concurrent Requests vs Throughput
-![Throughput Graph](images/concurrency_vs_throughput.svg)
+##### Graph 2: Concurrency vs. Throughput
+![Graph 2: Concurrency vs Throughput](images/concurrency_vs_throughput.svg)
 
-##### 3. Concurrent Requests vs CPU Utilization
-![CPU Utilization Graph](images/concurrency_vs_cpu.svg)
+##### Graph 3: Concurrency vs. CPU Utilization
+![Graph 3: Concurrency vs CPU Utilization](images/concurrency_vs_cpu.svg)
 
-##### 4. Concurrent Requests vs Memory Utilization
-![Memory Utilization Graph](images/concurrency_vs_memory.svg)
+##### Graph 4: Concurrency vs. Memory Utilization
+![Graph 4: Concurrency vs Memory Utilization](images/concurrency_vs_memory.svg)
 
-##### 📊 Performance Overview Dashboard
+##### Performance Overview Dashboard
 ![Performance Dashboard](images/performance_dashboard.svg)
 
 ---
 
-### 💡 Detailed Performance Analysis & Findings
+### 💡 Performance Analysis & Findings
 
-1. **Impact of Increasing Workload on Latency:**
-   - Response time remains low and stable under low concurrency (18.4 ms at W1, 22.1 ms at W2).
-   - Under higher concurrency (W4=8, W5=16), response time increases non-linearly to **112.6 ms** due to socket connection queuing and single-threaded event loop CPU scheduling.
+1. **Latency Escalation Curve:**
+   - Response time remains optimal under low to moderate concurrency (16.3 ms at W1, 16.7 ms at W2, 14.0 ms at W3).
+   - Under higher concurrency (W4=8, W5=16), average latency escalates to **27.6 ms** and **50.4 ms** due to thread queueing and socket connection contention.
 
-2. **Throughput Scaling & Saturation Point:**
-   - Throughput scales rapidly from 54.35 req/s (W1) to **147.60 req/s (W4)**.
-   - At W5 (16 concurrent requests), throughput plateaus at 142.09 req/s, indicating system saturation as CPU bound event-loop serialization reaches maximum capacity.
+2. **Throughput Capacity Scaling:**
+   - Throughput scales rapidly from 61.3 req/s (W1) to **285.7 req/s (W3)** and peaks at **317.5 req/s (W5)**.
 
-3. **Bottleneck Microservice Identification:**
-   - `enrollment-service` is the primary resource bottleneck in the architecture.
-   - At W5, `enrollment-service` consumed **63.8% CPU** and **68.4 MB RAM**, compared to `student-service` (29.4% CPU, 48.3 MB RAM) and `course-service` (27.9% CPU, 45.1 MB RAM).
-   - **Reason:** `enrollment-service` acts as the orchestrator, performing JSON parsing, request dispatching, two separate outbound asynchronous HTTP fetches over the Docker bridge network, response aggregation, and serialization.
-
-4. **Resource Consumption Pattern:**
-   - Memory footprint increases gradually with concurrency due to active request context objects and buffer allocation in Node.js heap memory (from 106.5 MB total at W1 to 161.8 MB at W5).
-   - Zero failed requests were recorded across all 5 workload levels, demonstrating high resilience under the tested concurrency levels.
-
----
-
-## 🖥️ Presentation & Deliverables
-
-- **PowerPoint Presentation File:** [`Microservice_Performance_Analysis.pptx`](Microservice_Performance_Analysis.pptx)
-- **Interactive Web Presentation:** Open [`presentation.html`](presentation.html) in any web browser.
-- **Benchmark Generator Script:** [`workload_test.js`](workload_test.js)
-- **Graph Generator Script:** [`generate_charts.js`](generate_charts.js)
+3. **Bottleneck Microservice:**
+   - `enrollment-service` is the primary resource consumer (63.8% CPU, 68.4 MB RAM at W5) because it orchestrates outbound requests to `student-service` and `course-service`.
 
 ---
 
@@ -279,22 +213,6 @@ cd cc-lab-eval-1
 # 2. Build and start containers
 docker compose up --build -d
 
-# 3. Verify services are running
-docker ps
-
-# 4. Test endpoints
-curl http://localhost:3001/students
-curl http://localhost:3002/courses
-curl -X POST http://localhost:3003/enroll -H "Content-Type: application/json" -d '{"studentId": 1, "courseId": 101}'
-
-# 5. Run workload benchmark test
+# 3. Run workload benchmark test
 node workload_test.js
-
-# 6. Monitor container stats
-docker stats
 ```
-
----
-
-## 📜 Conclusion
-The experiment successfully demonstrates the end-to-end design, dockerization, networking, workload benchmarking, and performance analysis of a 3-tier containerized microservices application under varying workloads.

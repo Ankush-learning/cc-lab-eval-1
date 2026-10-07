@@ -1,81 +1,100 @@
-<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1200" height="675" rx="16" fill="#0B0F19"/>
-    <rect x="1" y="1" width="1198" height="673" rx="15" fill="none" stroke="#1E293B" stroke-width="2"/>
+<svg width="1000" height="650" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer Dark Canvas Background -->
+    <rect width="1000" height="650" fill="#0B0F19"/>
 
-    <!-- Header Badge -->
-    <rect x="470" y="32" width="260" height="32" rx="16" fill="#1E293B"/>
-    <text x="600" y="53" fill="#818CF8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="1">RESOURCE UTILIZATION CURVE</text>
+    <!-- Header Titles outside Plot Box -->
+    <text x="32" y="38" fill="#F8FAFC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700">Graph 3: Concurrency vs. CPU Utilization</text>
+    <text x="32" y="66" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="400">Displays CPU utilization breakdown across the three microservices under increasing concurrency.</text>
 
-    <text x="600" y="98" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800" text-anchor="middle">Concurrent Requests vs CPU Utilization (%)</text>
-    <text x="600" y="123" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">Comparative CPU breakdown per microservice container under load</text>
+    <!-- White Plot Box -->
+    <rect x="32" y="85" width="936" height="530" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
 
-    <!-- Chart Frame -->
-    <rect x="100" y="160" width="1000" height="420" rx="12" fill="#0F172A" stroke="#1E293B"/>
+    <!-- Inner Chart Title -->
+    <text x="500" y="125" fill="#000000" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" text-anchor="middle">Graph 3: Concurrency vs. CPU Utilization</text>
 
-    <!-- Y-Axis Grid Lines & Labels -->
-    <line x1="140" y1="530" x2="1060" y2="530" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="534" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">0%</text>
+    <!-- Y-Axis Ticks: 0, 10, 20, 30, 40, 50, 60, 70 % -->
+    <!-- Scale: Y=0 -> 520, Y=70 -> 160. Scale factor = (520 - 160) / 70 = 5.14 px/% -->
 
-    <line x1="140" y1="460" x2="1060" y2="460" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="464" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">15%</text>
+    <line x1="100" y1="520" x2="920" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="525" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">0%</text>
 
-    <line x1="140" y1="390" x2="1060" y2="390" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="394" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">30%</text>
+    <line x1="100" y1="468.6" x2="920" y2="468.6" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="473.6" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">10%</text>
 
-    <line x1="140" y1="320" x2="1060" y2="320" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="324" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">45%</text>
+    <line x1="100" y1="417.1" x2="920" y2="417.1" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="422.1" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">20%</text>
 
-    <line x1="140" y1="250" x2="1060" y2="250" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="254" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">60%</text>
+    <line x1="100" y1="365.7" x2="920" y2="365.7" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="370.7" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">30%</text>
 
-    <line x1="140" y1="180" x2="1060" y2="180" stroke="#334155" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="125" y="184" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="12" text-anchor="end">75%</text>
+    <line x1="100" y1="314.3" x2="920" y2="314.3" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="319.3" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">40%</text>
 
-    <!-- X-Axis Labels -->
-    <text x="180" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W1 (1)</text>
-    <text x="390" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W2 (2)</text>
-    <text x="600" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W3 (4)</text>
-    <text x="810" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W4 (8)</text>
-    <text x="1020" y="565" fill="#CBD5E1" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" text-anchor="middle">W5 (16)</text>
+    <line x1="100" y1="262.8" x2="920" y2="262.8" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="267.8" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">50%</text>
 
-    <line x1="140" y1="530" x2="1060" y2="530" stroke="#64748B" stroke-width="2"/>
+    <line x1="100" y1="211.4" x2="920" y2="211.4" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="216.4" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">60%</text>
 
-    <!-- enrollment-service line (#818CF8) -->
-    <path d="M 180 509 C 285 509, 285 489.4, 390 489.4 C 495 489.4, 495 448.8, 600 448.8 C 705 448.8, 705 370.4, 810 370.4 C 915 370.4, 915 232.26, 1020 232.26" fill="none" stroke="#818CF8" stroke-width="4.5" stroke-linecap="round"/>
-    <circle cx="180" cy="509" r="6" fill="#818CF8"/>
-    <circle cx="390" cy="489.4" r="6" fill="#818CF8"/>
-    <circle cx="600" cy="448.8" r="6" fill="#818CF8"/>
-    <circle cx="810" cy="370.4" r="6" fill="#818CF8"/>
-    <circle cx="1020" cy="232.26" r="8" fill="#818CF8" stroke="#0F172A" stroke-width="3"/>
-    <text x="1020" y="215" fill="#818CF8" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="800" text-anchor="middle">63.8% (Bottleneck)</text>
+    <line x1="100" y1="160" x2="920" y2="160" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="85" y="165" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="end">70%</text>
 
-    <!-- student-service line (#34D399) -->
-    <path d="M 180 520.2 C 285 520.2, 285 509.93, 390 509.93 C 495 509.93, 495 491.73, 600 491.73 C 705 491.73, 705 457.2, 810 457.2 C 915 457.2, 915 392.8, 1020 392.8" fill="none" stroke="#34D399" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="180" cy="520.2" r="5" fill="#34D399"/>
-    <circle cx="390" cy="509.93" r="5" fill="#34D399"/>
-    <circle cx="600" cy="491.73" r="5" fill="#34D399"/>
-    <circle cx="810" cy="457.2" r="5" fill="#34D399"/>
-    <circle cx="1020" cy="392.8" r="6" fill="#34D399"/>
-    <text x="1020" y="380" fill="#34D399" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle">29.4%</text>
+    <!-- X Grid Lines & Ticks -->
+    <line x1="120" y1="160" x2="120" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="120" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">1</text>
 
-    <!-- course-service line (#F0ABFC) -->
-    <path d="M 180 521.6 C 285 521.6, 285 511.8, 390 511.8 C 495 511.8, 495 493.6, 600 493.6 C 705 493.6, 705 460.93, 810 460.93 C 915 460.93, 915 399.8, 1020 399.8" fill="none" stroke="#F0ABFC" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="180" cy="521.6" r="5" fill="#F0ABFC"/>
-    <circle cx="390" cy="511.8" r="5" fill="#F0ABFC"/>
-    <circle cx="600" cy="493.6" r="5" fill="#F0ABFC"/>
-    <circle cx="810" cy="460.93" r="5" fill="#F0ABFC"/>
-    <circle cx="1020" cy="399.8" r="6" fill="#F0ABFC"/>
+    <line x1="200" y1="160" x2="200" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="200" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">2</text>
 
-    <!-- Legends Box -->
-    <rect x="150" y="180" width="480" height="40" rx="8" fill="#1E293B" opacity="0.9"/>
-    <rect x="170" y="194" width="16" height="12" rx="3" fill="#818CF8"/>
-    <text x="192" y="205" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700">enrollment-service</text>
+    <line x1="360" y1="160" x2="360" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="360" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">4</text>
 
-    <rect x="330" y="194" width="16" height="12" rx="3" fill="#34D399"/>
-    <text x="352" y="205" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700">student-service</text>
+    <line x1="550" y1="160" x2="550" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="550" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">8</text>
 
-    <rect x="480" y="194" width="16" height="12" rx="3" fill="#F0ABFC"/>
-    <text x="502" y="205" fill="#F8FAFC" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700">course-service</text>
+    <line x1="900" y1="160" x2="900" y2="520" stroke="#EEEEEE" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="900" y="545" fill="#000000" font-family="sans-serif" font-size="14" text-anchor="middle">16</text>
 
-    <text x="600" y="635" fill="#94A3B8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Workload Concurrency Level (Client Requests)</text>
+    <!-- Axes Titles -->
+    <text x="510" y="580" fill="#000000" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">Concurrency Level (Concurrent Clients)</text>
+    <text x="45" y="340" fill="#000000" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle" transform="rotate(-90, 45, 340)">CPU Utilization (%)</text>
+
+    <!-- Legend (Top Left Box) -->
+    <rect x="110" y="145" width="440" height="38" rx="4" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1.5"/>
+    <line x1="125" y1="164" x2="145" y2="164" stroke="#4F46E5" stroke-width="3"/><circle cx="135" cy="164" r="4" fill="#4F46E5"/>
+    <text x="152" y="169" fill="#333333" font-family="sans-serif" font-size="12" font-weight="600">enrollment-service</text>
+
+    <line x1="275" y1="164" x2="295" y2="164" stroke="#16A34A" stroke-width="3"/><circle cx="285" cy="164" r="4" fill="#16A34A"/>
+    <text x="302" y="169" fill="#333333" font-family="sans-serif" font-size="12" font-weight="600">student-service</text>
+
+    <line x1="410" y1="164" x2="430" y2="164" stroke="#D946EF" stroke-width="3"/><circle cx="420" cy="164" r="4" fill="#D946EF"/>
+    <text x="437" y="169" fill="#333333" font-family="sans-serif" font-size="12" font-weight="600">course-service</text>
+
+    <!-- enrollment-service line (#4F46E5): (120, 496.8) -> (200, 475.2) -> (360, 430.5) -> (550, 344.1) -> (900, 191.9) -->
+    <polyline points="120,496.8 200,475.2 360,430.5 550,344.1 900,191.9" fill="none" stroke="#4F46E5" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="120" cy="496.8" r="5" fill="#4F46E5"/>
+    <circle cx="200" cy="475.2" r="5" fill="#4F46E5"/>
+    <circle cx="360" cy="430.5" r="5" fill="#4F46E5"/>
+    <circle cx="550" cy="344.1" r="5" fill="#4F46E5"/>
+    <circle cx="900" cy="191.9" r="5" fill="#4F46E5"/>
+    <rect x="870" y="168" width="60" height="18" rx="3" fill="#FFFFFF" stroke="#4F46E5" stroke-width="1"/>
+    <text x="900" y="181" fill="#4F46E5" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">63.8%</text>
+
+    <!-- student-service line (#16A34A): (120, 509.2) -> (200, 497.8) -> (360, 477.8) -> (550, 439.8) -> (900, 368.8) -->
+    <polyline points="120,509.2 200,497.8 360,477.8 550,439.8 900,368.8" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="120" cy="509.2" r="4" fill="#16A34A"/>
+    <circle cx="200" cy="497.8" r="4" fill="#16A34A"/>
+    <circle cx="360" cy="477.8" r="4" fill="#16A34A"/>
+    <circle cx="550" cy="439.8" r="4" fill="#16A34A"/>
+    <circle cx="900" cy="368.8" r="4" fill="#16A34A"/>
+    <rect x="870" y="346" width="60" height="18" rx="3" fill="#FFFFFF" stroke="#16A34A" stroke-width="1"/>
+    <text x="900" y="359" fill="#16A34A" font-family="sans-serif" font-size="11" font-weight="800" text-anchor="middle">29.4%</text>
+
+    <!-- course-service line (#D946EF): (120, 510.7) -> (200, 499.9) -> (360, 479.9) -> (550, 443.9) -> (900, 376.5) -->
+    <polyline points="120,510.7 200,499.9 360,479.9 550,443.9 900,376.5" fill="none" stroke="#D946EF" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="120" cy="510.7" r="4" fill="#D946EF"/>
+    <circle cx="200" cy="499.9" r="4" fill="#D946EF"/>
+    <circle cx="360" cy="479.9" r="4" fill="#D946EF"/>
+    <circle cx="550" cy="443.9" r="4" fill="#D946EF"/>
+    <circle cx="900" cy="376.5" r="4" fill="#D946EF"/>
 </svg>
